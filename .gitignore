@@ -2,6 +2,11 @@
 *~
 *#
 
+# figures and logos in dev vector form
+images/*
+# prototype code which is not intended to be pushed
+prototypes/*
+
 /Manifest.toml
 /docs/Manifest.toml
 /docs/build/
