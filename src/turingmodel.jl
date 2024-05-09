@@ -1,6 +1,6 @@
-using Turing, StatsPlots, Random, Distributions
+#using Turing, StatsPlots, Random, Distributions
 
-include("BetaAdaptive.jl")
+#include("BetaAdaptive.jl")
 
 # we want to check Turing by simulating data from known params and then sampling their posterior distributions
 # set vars and true param values

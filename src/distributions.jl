@@ -1,7 +1,7 @@
-using Distributions
-using SpecialFunctions # for the beta function gamma(a)gamma(b)/gamma(a+b) 
-using Base
-using Random
+#using Distributions
+#using SpecialFunctions # for the beta function gamma(a)gamma(b)/gamma(a+b) 
+#using Base
+#using Random
 
 function fourpar_dbeta(tau,a,b,t1,t2) 
     f = ((tau-t1)^(a - 1) * (t2-tau)^(b - 1)) / ((t2-t1)^(a+b-1) * SpecialFunctions.beta(a,b))

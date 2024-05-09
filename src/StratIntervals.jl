@@ -1,5 +1,34 @@
 module StratIntervals
 
-# Write your package code here.
+# pick the function names in use in the code and just
+# include these with using Module: fun1 fun2 etc
+using Distributions
+using Random
+using SpecialFunctions
+using StatsPlots
+using Turing
+
+# functions to export for the users to call
+export
+    # distributions.jl
+    foupar_dbeta,
+    threepar_dbeta,
+    BetaAdaptive,
+    pdf,
+    logpdf,
+    cdf,
+    quantile,
+    minimum,
+    maximum,
+    insupport,
+    BetaAdaptiveSampler,
+    rand,
+    # structs.jl
+    StratInterval
+
+    
+include("distributions.jl")
+include("structs.jl")
+include("turingmodel.jl")
 
 end
