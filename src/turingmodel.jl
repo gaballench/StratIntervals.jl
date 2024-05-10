@@ -13,7 +13,7 @@
 
 #interval = StratInterval(data, Exponential(1), Exponential(1), Uniform(0,1))
 
-function sample_stratint(data_priors::StratInterval, iters, epsilon, tau_hmc, prior)
+function sample_stratinterval(data_priors::StratInterval, iters, epsilon, tau_hmc, prior)
     # then declare the Turing model as a hierarchical Bayesian model with
     # priors on theta1, theta2, and lambda
     @model function stratint(data_priors::StratInterval)

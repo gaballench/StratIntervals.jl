@@ -24,7 +24,9 @@ export
     BetaAdaptiveSampler,
     rand,
     # structs.jl
-    StratInterval
+    StratInterval,
+    # turingmodel.jl
+    sample_stratinterval
 
     
 include("distributions.jl")
