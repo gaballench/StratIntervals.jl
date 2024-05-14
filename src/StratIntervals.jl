@@ -26,11 +26,14 @@ export
     # structs.jl
     StratInterval,
     # turingmodel.jl
-    sample_stratinterval
+    sample_stratinterval,
+    # conflation.jl
+    conflate,
+    pdf
 
     
 include("distributions.jl")
 include("structs.jl")
 include("turingmodel.jl")
-
+include("conflate.jl")
 end
