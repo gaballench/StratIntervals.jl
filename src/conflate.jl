@@ -19,6 +19,6 @@ function conflate(d::Product, x::Float64)
     # vector of values for product_distribution might be a metaprogramming like paste(rep('x', times =n), sep='*')
     # now integrating with the QuadGK package because Integrals simply did not work out of the box
     # integral, err = quadgk(x -> pdf(Normal(0,1),x), -Inf, Inf, rtol=1e-8)
-    denominator, err = QuadGK.quadgk(x -> pdf(numerator, x), -Inf, Inf, rtol=1e-8)
+    denominator, err = quadgk(x -> pdf(numerator, x), -Inf, Inf, rtol=1e-8)
     return pdf(numerator, x)/denominator
 end
