@@ -8,6 +8,7 @@ using SpecialFunctions
 using StatsPlots
 using Turing
 using QuadGK
+using DataFrames
 
 # functions to export for the users to call
 export
