@@ -35,3 +35,23 @@ function conflate(d::Array{Float64, 2}, x::Float64)
     denominat, err = quadgk(x -> prod(map(dd -> pdf(dd, x), interpolations)), -Inf, Inf, rtol=1e-8)
     return prod(map(dd -> pdf(dd, x), interpolations))/denominat
 end
+
+# calculation of the pdf for tau as a conflation of StratIntervals
+# this uses the output of sample_interval with a Vector{StratInterval} and where postpredict is true
+# x is the value of tau at which the conflated pdf is evaluated
+function tau_collection(taus, x::Float64)
+    # is taus a vector?
+    if !(taus isa Vector{Any})
+        error("taus must be of type Vector{Any}, the result of calling `sample_interval` on a Vector{StratInterval} where argument `postpredict` is true")
+    end
+    if length(taus) < 2
+        error("taus must be at least of legnth = 2")
+    end
+    if !(taus[1][1] isa Chains) | !(taus[1][2] isa Vector{Float64})
+        error("taus must have tuple elements of type Chains and Vector{Float64}, the result of calling `sample_interval` on a Vector{StratInterval} where argument `postpredict` is true")
+    end
+    # take all the postpredict vectors and build a matrix
+    postpredict_matrix = reduce(hcat, getindex.(taus, 2))
+    # return the call to conflate evaluated at the value of x
+    return conflate(postpredict_matrix, x)
+end
