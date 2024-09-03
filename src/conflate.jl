@@ -13,6 +13,7 @@ function Distributions.pdf(d::Product, x::Float64)
 end
 
 # conflation needs to be univariate wrt x. It can be vectorised by taking pdf. but this needs to be done carefully in order to check whether Turing will behave correctly in this case
+# method for a product distribution
 function conflate(d::Product, x::Float64)
     numerat = d
     #evaluation of the product pdf is pdf(numerator, [vector of the same value, one per distribution])
