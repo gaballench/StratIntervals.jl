@@ -9,6 +9,8 @@ using StatsPlots
 using Turing
 using QuadGK
 using DataFrames
+using Interpolations
+using KernelDensity
 
 # functions to export for the users to call
 export
