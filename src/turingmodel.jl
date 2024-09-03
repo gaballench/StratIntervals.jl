@@ -42,7 +42,7 @@ function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, pri
                    iters)
     # if posterior predictive, sample from chain and using the model
     if postpredict
-        pars = DataFrame(chain)[:, [:θ1, :θ2, :λ]]        
+        pars = DataFrames.DataFrame(chain)[:, [:θ1, :θ2, :λ]]        
         # generate the posterior predictive from the samples in `chain`
         # by mapping a rand call to BetaAdaptive with each collection of values 
         # prepare the results vector
