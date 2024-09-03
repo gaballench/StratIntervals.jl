@@ -33,7 +33,8 @@ export
     sample_stratinterval,
     # conflation.jl
     conflate,
-    pdf
+    pdf,
+    tau_collection
 
     
 include("distributions.jl")
