@@ -4,7 +4,7 @@
 #*_prior are passed on to the parameter priors inside the Turing model 
 struct StratInterval
     data::Vector{Real}
-    θ1_prior::ContinuousUnivariateDistribution
-    θ2_prior::ContinuousUnivariateDistribution
-    λ_prior::ContinuousUnivariateDistribution
+    θ1_prior::Union{ContinuousUnivariateDistribution,Float64}
+    θ2_prior::Union{ContinuousUnivariateDistribution,Float64}
+    λ_prior::Union{ContinuousUnivariateDistribution,Float64}
 end

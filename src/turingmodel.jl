@@ -13,10 +13,26 @@ function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, pri
             # Initialize `x` if missing
             τ = Vector{T}(undef, 1)
         end
-        # priors
-        θ1 ~ θ1_prior
-        θ2 ~ θ2_prior
-        λ ~ λ_prior
+        # priors are Float64 if fixed, Distribution otherwise
+        # not all the priors can be fixed!
+        if sum(map(x -> x isa Float64, (θ1_prior, θ2_prior, λ_prior))) == 3
+            error("Not all the parameters can be fixed, at least one needs to be sampled. All parameters were Float64")
+        end
+        if θ1_prior isa Float64
+            θ1 = θ1_prior
+        else
+            θ1 ~ θ1_prior
+        end
+        if θ2_prior isa Float64
+            θ2 = θ2_prior
+        else
+            θ2 ~ θ2_prior
+        end
+        if λ_prior isa Float64
+            λ = λ_prior
+        else
+            λ ~ λ_prior
+        end
         # reject values outside the support of the parameters
         if θ1 > minimum(τ) || θ2 < maximum(τ) || θ1 < 0 || θ2 < 0
             Turing.@addlogprob! -Inf
@@ -55,6 +71,7 @@ function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, pri
     end
 end
 
+# this method is just doing sequential estimation by looping over the vector of StratIntervals 
 function sample_stratinterval(stratintervals::Vector{StratInterval}, iters, ϵ, τ_hmc, prior, postpredict)
     output = Vector(undef, length(stratintervals))
     counter = 1
