@@ -1,9 +1,21 @@
-# using QuadGK
-
 # code for implementing conflation of an arbitrary vector of PDFs
 
-# but first extend pdf to take a product and a float and simply recycle it
-# for passing it further to pdf
+"""
+    Distributions.pdf(d::Product, x::Float64)
+
+Method for specifying an arbitrary vector if pdfs to be evaluated at the same
+x value.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> using Random
+julia> Random.seed!(4);
+julia> distribs = [Normal(0, 1), Normal(1, 1), Normal(2, 1)]
+julia> pdf(distribs, 1.5) # evaluate the product of three normals at x=1.5
+```
+"""
 function Distributions.pdf(d::Product, x::Float64)
     xvec = [x]
     for i in 2:length(d)
@@ -24,7 +36,12 @@ function conflate(d::Product, x::Float64)
     return pdf(numerat, x)/denominat
 end
 
-# conflation method for a matrix of floats, which are coming from a posterior predictive analysis, one column per stratigraphic interval
+"""
+    conflate(d::Array{Float64, 2}, x::Float64)
+
+Conflation method for a matrix of floats, which are coming from a posterior predictive analysis,
+one column per stratigraphic interval.
+"""
 function conflate(d::Array{Float64, 2}, x::Float64)
     # we need to wrap everything related to InterpKDE inside the method Array{Flot64, 2} as the type hierarchy does not allow to easily create a method for it
     # take a matrix of empirical values to smooth, column-wise, and then apply the KDE and interpolation on each column
