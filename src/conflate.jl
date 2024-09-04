@@ -3,7 +3,7 @@
 """
     Distributions.pdf(d::Product, x::Float64)
 
-Method for specifying an arbitrary vector if pdfs to be evaluated at the same
+Method for specifying the product of an arbitrary vector of pdfs to be evaluated at the same
 x value.
 
 # examples
@@ -24,8 +24,16 @@ function Distributions.pdf(d::Product, x::Float64)
     return pdf(d, xvec)
 end
 
-# conflation needs to be univariate wrt x. It can be vectorised by taking pdf. but this needs to be done carefully in order to check whether Turing will behave correctly in this case
-# method for a product distribution
+# conflation needs to be univariate wrt x. It can be vectorised by taking pdf. 
+"""
+    conflate(d::Product, x::Float64)
+
+Conflation method for a product distribution, which are coming from calling pdf on a vector of pdfs.
+
+It takes a vector of pdfs and conflate then evaluating the resulting pdf at x.
+
+For conflation of empirical distributions see `conflate(d::Array{Float64, 2}, x::Float64)`@ref
+"""
 function conflate(d::Product, x::Float64)
     numerat = d
     #evaluation of the product pdf is pdf(numerator, [vector of the same value, one per distribution])
@@ -41,6 +49,10 @@ end
 
 Conflation method for a matrix of floats, which are coming from a posterior predictive analysis,
 one column per stratigraphic interval.
+
+It takes a matrix of empirical values to smooth, column-wise, and then apply the KDE and interpolation on each column.
+
+Then it applies the conflation to these empirical pdfs and evaluate it at x.
 """
 function conflate(d::Array{Float64, 2}, x::Float64)
     # we need to wrap everything related to InterpKDE inside the method Array{Flot64, 2} as the type hierarchy does not allow to easily create a method for it
@@ -53,9 +65,17 @@ function conflate(d::Array{Float64, 2}, x::Float64)
     return prod(map(dd -> pdf(dd, x), interpolations))/denominat
 end
 
-# calculation of the pdf for tau as a conflation of StratIntervals
-# this uses the output of sample_interval with a Vector{StratInterval} and where postpredict is true
-# x is the value of tau at which the conflated pdf is evaluated
+
+"""
+    tau_collection(taus, x::Float64)
+
+Calculation of the pdf for tau as a conflation of StratIntervals.
+
+This uses the output of `sample_interval` with a `Vector{StratInterval}` and where `postpredict` is `true`.
+
+The value of x is the evaluated using the conflation of the collection of stratigraphic intervals, that is,
+the tau for the co-occurrence of `StratInterval`s.
+"""
 function tau_collection(taus, x::Float64)
     # is taus a vector?
     if !(taus isa Vector{Any})
