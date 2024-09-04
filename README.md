@@ -7,6 +7,8 @@
 
 A Julia package for Bayesian inference of stratigraphic intervals using time occurrence data.
 
+It also provides code for calculating the conflation of PDFs, both analytical and empirical.
+    
 ## Installation
 
 For now only the github development version is available. You can install using

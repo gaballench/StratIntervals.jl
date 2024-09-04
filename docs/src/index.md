@@ -8,7 +8,7 @@ Documentation for [StratIntervals](https://github.com/gaballench/StratIntervals.
 
 ```@index
 ```
-
+    
 ```@autodocs
 Modules = [StratIntervals]
 ```
