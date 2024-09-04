@@ -58,13 +58,31 @@ function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, pri
                    iters)
     # if posterior predictive, sample from chain and using the model
     if postpredict
-        pars = DataFrames.DataFrame(chain)[:, [:θ1, :θ2, :λ]]        
+        # block here for repeating the fixed param value
+        # during posterior predictive sampling
+        if θ1_prior isa Float64
+            θ1_trace = vcat(fill.(θ1_prior, iters))
+        else
+            θ1_trace = DataFrames.DataFrame(chain)[:, :θ1]
+        end
+        if θ2_prior isa Float64
+            θ2_trace = vcat(fill.(θ2_prior, iters))
+        else
+            θ2_trace = DataFrames.DataFrame(chain)[:, :θ2]
+        end
+        if λ_prior isa Float64
+            λ_trace = vcat(fill.(λ_prior, iters))
+        else
+            λ_trace = DataFrames.DataFrame(chain)[:, :λ]
+        end
         # generate the posterior predictive from the samples in `chain`
         # by mapping a rand call to BetaAdaptive with each collection of values 
         # prepare the results vector
         postpredict = Vector(undef, iters)        
         # map over iterations to sample one value from each combination of params
-        postpredict = map(x -> rand(BetaAdaptive(pars.θ1[x], pars.θ2[x], pars.λ[x]), 1)[1], 1:iters)
+        postpredict = map(x -> rand(BetaAdaptive(θ1_trace[x],
+                                                 θ2_trace[x],
+                                                 λ_trace[x]), 1)[1], 1:iters)
         return (chain, postpredict)
     else
         return chain
