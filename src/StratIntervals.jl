@@ -17,7 +17,7 @@ export
     # distributions.jl
     foupar_dbeta,
     threepar_dbeta,
-    BetaAdaptive,
+    ThreeParBeta,
     pdf,
     logpdf,
     cdf,
@@ -25,7 +25,7 @@ export
     minimum,
     maximum,
     insupport,
-    BetaAdaptiveSampler,
+    ThreeParBetaSampler,
     rand,
     # structs.jl
     StratInterval,

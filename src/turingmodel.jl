@@ -1,4 +1,22 @@
 # wrapper for the the Turing model for a single tratigraphic interval
+"""
+    sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, prior, postpredict)
+
+This function samples the posterior distributions of the stratigraphic interval using MCMC.
+
+Input are the data and priors as constructed using StratInterval(). Addtional arguments specify the
+settings of the Hamiltonian Monte Carlo algorithm, and finally the last argument specifies whether
+we want to calculate the posterior predictive distribution of τ.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> my_strinterval = StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Exponential(1), Normal(10, 2), Normal(0, 1))
+julia> sample_stratinterval(my_strinterval, 10000, 0.02, 3, true, false) # sample from prior
+julia> sample_stratinterval(my_strinterval, 10000, 0.02, 3, false, false) # sample from posterior
+julia> sample_stratinterval(my_strinterval, 10000, 0.02, 3, false, true) # sample from posterior and calculate posterior predictive of tau
+"""
 function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, prior, postpredict)
     # dismantle the StratInterval object
     data = data_priors.data
@@ -41,8 +59,8 @@ function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, pri
         # define the likelihood of the observed data
         N = length(τ)
         for i in 1:N
-            τ[i] ~ BetaAdaptive(θ1, θ2, λ)
-            #println(τ[i]~ BetaAdaptive(θ1, θ2, λ))
+            τ[i] ~ ThreeParBeta(θ1, θ2, λ)
+            #println(τ[i]~ ThreeParBeta(θ1, θ2, λ))
         end
     end
     # sample from prior? enter block and return chain
@@ -76,11 +94,11 @@ function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, pri
             λ_trace = DataFrames.DataFrame(chain)[:, :λ]
         end
         # generate the posterior predictive from the samples in `chain`
-        # by mapping a rand call to BetaAdaptive with each collection of values 
+        # by mapping a rand call to ThreeParBeta with each collection of values 
         # prepare the results vector
         postpredict = Vector(undef, iters)        
         # map over iterations to sample one value from each combination of params
-        postpredict = map(x -> rand(BetaAdaptive(θ1_trace[x],
+        postpredict = map(x -> rand(ThreeParBeta(θ1_trace[x],
                                                  θ2_trace[x],
                                                  λ_trace[x]), 1)[1], 1:iters)
         return (chain, postpredict)
@@ -90,6 +108,42 @@ function sample_stratinterval(data_priors::StratInterval, iters, ϵ, τ_hmc, pri
 end
 
 # this method is just doing sequential estimation by looping over the vector of StratIntervals 
+"""
+    sample_stratinterval(data_priors::Vector{StratInterval}, iters, ϵ, τ_hmc, prior, postpredict)
+
+This function samples the posterior distributions of a vector of  stratigraphic intervals using MCMC.
+
+Input data is a vector of type StratInterval. Addtional arguments specify the
+settings of the Hamiltonian Monte Carlo algorithm, and finally the last argument specifies whether
+we want to calculate the posterior predictive distribution of τ.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> ndata = 100
+julia> iters = 10000
+julia> epsilon = 0.02
+julia> tau_hmc = 3
+julia> # first interval
+julia> true_lambda_1 = 0
+julia> true_theta1_1 = 10
+julia> true_theta2_1 = 22
+julia> data_1 = rand(ThreeParBeta(true_theta1_1, true_theta2_1, true_lambda_1), ndata)
+julia> # second interval
+julia> true_lambda_2 = 1
+julia> true_theta1_2 = 15
+julia> true_theta2_2 = 30
+julia> data_2 = rand(ThreeParBeta(true_theta1_2, true_theta2_2, true_lambda_2), ndata)
+julia> interval_1 = StratInterval(data_1, Exponential(10), Normal(22, 3), Normal(0,3))
+julia> interval_2 = StratInterval(data_2, Exponential(15), Normal(30, 3), Normal(1,3))
+julia> # construct the vector of StratIntervals
+julia> vecinterval = [interval_1, interval_2]
+julia> # MCMC sampling
+julia> mystratint_mcmc_vec = sample_stratinterval(vecinterval, iters, epsilon, tau_hmc, false, false)
+julia> # MCMC sampling and posterior predictive
+julia> mystratint_postpredict_vec = sample_stratinterval(vecinterval, iters, epsilon, tau_hmc, false, true)
+"""
 function sample_stratinterval(stratintervals::Vector{StratInterval}, iters, ϵ, τ_hmc, prior, postpredict)
     output = Vector(undef, length(stratintervals))
     counter = 1
