@@ -63,6 +63,13 @@ end
 Structure for constructing the PDF of stratigraphic interval estimation.
 It is a subtype of `ContinuousUnivariateDitribution`. This structure has three fields,
 corresponding to parameters: bounds on x [θ1,θ2] and the preservation parameter λ. 
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> rand(ThreeParBeta(1.0, 5.0, 0.0)) # sample a random number from the ThreeParBeta with params θ1=1.0, θ2=5.0, λ=0.0
+```
 """
 struct ThreeParBeta <: ContinuousUnivariateDistribution
     θ1::Real
