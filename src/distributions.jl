@@ -4,49 +4,49 @@
 #using Random
 
 """
-    fourpar_dbeta(τ,α,β,τ1,τ2)
+    fourpar_dbeta(τ,θ1,θ2,α,β)
 
 The four-parameter Beta PDF. This is not meant to be used directly but just for testing.
 This is a Beta where the support is not bound to the interval [0,1] but rather two arbitrary
-parameters [τ1,τ2]. Shape parameters α,β are the usual ones in the Beta PDF.
+parameters [θ1,θ2]. Shape parameters α,β are the usual ones in the Beta PDF.
 The function returns the value of the PDF at a given value of τ.
 
 # examples
 
 ```jldoctest
-julia> fourpar_dbeta(2.56, 1, 1, 1.0, 5.0)
+julia> fourpar_dbeta(2.56, 1.0, 5.0, 1, 1) alpha and beta = 1
 ```
 """
-function fourpar_dbeta(τ,α,β,τ1,τ2) 
-    f = ((τ-τ1)^(α - 1) * (τ2-τ)^(β - 1)) / ((τ2-τ1)^(α+β-1) * SpecialFunctions.beta(α,β))
+function fourpar_dbeta(τ,θ1,θ2,α,β) 
+    f = ((θ-θ1)^(α - 1) * (θ2-θ)^(β - 1)) / ((θ2-θ1)^(α+β-1) * SpecialFunctions.beta(α,β))
     return(f)
 end
 
 ### functions with reparam
 """
-    threepar_dbeta(τ,τ1,τ2,λ)
+    threepar_dbeta(θ,θ1,θ2,λ)
 
 The three-parameter Beta PDF. This is not meant to be used directly but just for testing.
 This is a Beta where the support is not bound to the interval [0,1] but rather two arbitrary
-parameters [τ1,τ2]. Shape parameters are reparametrised to λ instead of the usual shape parameters
+parameters [θ1,θ2]. Shape parameters are reparametrised to λ instead of the usual shape parameters
 α,β in the Beta PDF.
 The function returns the value of the PDF at a given value of τ.
 
 # examples
 
 ```jldoctest
-julia> threepar_dbeta(2.56, 1.0, 5.0, 2.0)
+julia> threepar_dbeta(2.56, 1.0, 5.0, 2.0) # lambda = 2
 ```
 """
-function threepar_dbeta(τ,τ1,τ2,λ)
+function threepar_dbeta(τ,θ1,θ2,λ)
     if (λ <= 0)
         #println("Calculating under λ <= 0")
-        f = ((τ2 - τ)^(-λ)) / ((τ2 - τ1)^(1-λ) * SpecialFunctions.beta(1,1-λ))
-        #f = ((τ2 - τ)^(-λ)) / ((τ2 - τ1)^(1-λ) * Bnegative)
+        f = ((θ2 - θ)^(-λ)) / ((θ2 - θ1)^(1-λ) * SpecialFunctions.beta(1,1-λ))
+        #f = ((θ2 - θ)^(-λ)) / ((θ2 - θ1)^(1-λ) * Bnegative)
     else
         #println("Calculating under λ > 0")
-        f = ((τ-τ1)^(λ)) / ((τ2 - τ1)^(1+λ) * SpecialFunctions.beta(1+λ,1))
-        #f = ((τ-τ1)^(λ)) / ((τ2 - τ1)^(1+λ) * Bpositive)
+        f = ((θ-θ1)^(λ)) / ((θ2 - θ1)^(1+λ) * SpecialFunctions.beta(1+λ,1))
+        #f = ((θ-θ1)^(λ)) / ((θ2 - θ1)^(1+λ) * Bpositive)
     end
     return(f)    
 end
