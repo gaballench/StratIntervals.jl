@@ -264,6 +264,7 @@ when called with only the distribution specification, or a vector of Float64 whe
 julia> using Distributions
 julia> rand(ThreeParBeta(1.0, 5.0, 0.0)) # return a single random number
 julia> rand(ThreeParBeta(1.0, 5.0, 0.0), 10) # return a vector of 10 random numbers
+```
 """
 function Base.rand(rng::AbstractRNG, d::ThreeParBetaSampler)
     if d.λ <= 0
