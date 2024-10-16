@@ -16,7 +16,7 @@ For now only the github development version is available. You can install using
 
 ```julia
 using Pkg
-Pkg.add("gaballench/StratIntervals.jl")
+Pkg.add("https://github.com/gaballench/StratIntervals.jl")
 ```
 
 ## Authorship
