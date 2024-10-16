@@ -14,8 +14,6 @@ using KernelDensity
 # functions to export for the users to call
 export
     # distributions.jl
-    #foupar_dbeta,
-    #threepar_dbeta,
     ThreeParBeta,
     pdf,
     logpdf,

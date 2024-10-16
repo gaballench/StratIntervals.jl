@@ -4,7 +4,6 @@
 ####################################
 
 ### define a subtype
-# this probably needs to be defined as imutable with the parameters θ. and λ
 """
     ThreeParBeta
 
@@ -25,7 +24,6 @@ struct ThreeParBeta <: ContinuousUnivariateDistribution
     λ::Real
 end
 
-### declaring methods in a quick way, check whether this is correct
 ### define the pdf
 """
     Distributions.pdf(d::ThreeParBeta, τ::Real)
@@ -225,56 +223,3 @@ function Base.rand(rng::AbstractRNG, d::ThreeParBetaSampler)
     sample = rand(rng, d.distribution(α,β))
     return sample * (d.θ2 - d.θ1) + d.θ1
 end
-
-################# The functions below (fourpar_dbeta and threepar_dbeta) ####################
-################# are merely for testing and are not exported ###############################
-"""
-    fourpar_dbeta(τ,θ1,θ2,α,β)
-
-The four-parameter Beta PDF. This is not meant to be used directly but just for testing.
-This is a Beta where the support is not bound to the interval [0,1] but rather two arbitrary
-parameters [θ1,θ2]. Shape parameters α,β are the usual ones in the Beta PDF.
-The function returns the value of the PDF at a given value of τ.
-
-# examples
-
-```jldoctest
-julia> fourpar_dbeta(2.56, 1.0, 5.0, 1, 1) alpha and beta = 1
-```
-"""
-function fourpar_dbeta(τ,θ1,θ2,α,β) 
-    f = ((θ-θ1)^(α - 1) * (θ2-θ)^(β - 1)) / ((θ2-θ1)^(α+β-1) * SpecialFunctions.beta(α,β))
-    return(f)
-end
-
-### functions with reparam
-"""
-    threepar_dbeta(θ,θ1,θ2,λ)
-
-The three-parameter Beta PDF. This is not meant to be used directly but just for testing.
-This is a Beta where the support is not bound to the interval [0,1] but rather two arbitrary
-parameters [θ1,θ2]. Shape parameters are reparametrised to λ instead of the usual shape parameters
-α,β in the Beta PDF.
-The function returns the value of the PDF at a given value of τ.
-
-# examples
-
-```jldoctest
-julia> threepar_dbeta(2.56, 1.0, 5.0, 2.0) # lambda = 2
-```
-"""
-function threepar_dbeta(τ,θ1,θ2,λ)
-    if (λ <= 0)
-        #println("Calculating under λ <= 0")
-        f = ((θ2 - θ)^(-λ)) / ((θ2 - θ1)^(1-λ) * SpecialFunctions.beta(1,1-λ))
-        #f = ((θ2 - θ)^(-λ)) / ((θ2 - θ1)^(1-λ) * Bnegative)
-    else
-        #println("Calculating under λ > 0")
-        f = ((θ-θ1)^(λ)) / ((θ2 - θ1)^(1+λ) * SpecialFunctions.beta(1+λ,1))
-        #f = ((θ-θ1)^(λ)) / ((θ2 - θ1)^(1+λ) * Bpositive)
-    end
-    return(f)    
-end
-################# The functions above (fourpar_dbeta and threepar_dbeta) ####################
-################# are merely for testing and are not exported ###############################
-
