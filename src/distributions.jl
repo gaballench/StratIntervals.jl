@@ -97,11 +97,11 @@ function Distributions.pdf(d::ThreeParBeta, τ::Real)
     #threepar_dbeta(d.τ, d.θ1, d.θ2, d.λ)
     if (d.λ <= 0)
         #println("Calculating under λ <= 0")
-        f = ((d.θ2 - τ)^(-d.λ)) / ((d.θ2 - d.θ1)^(1-d.λ) * SpecialFunctions.beta(1,1-d.λ))
+        f = ((d.θ2 - τ)^(-d.λ)) / ((d.θ2 - d.θ1)^(1-d.λ) * (1/(1-d.λ)))
         #f = ((t2 - τ)^(-λ)) / ((t2 - t1)^(1-λ) * Bnegative)
     else
         #println("Calculating under λ > 0")
-        f = ((τ-d.θ1)^(d.λ)) / ((d.θ2 - d.θ1)^(1+d.λ) * SpecialFunctions.beta(1+d.λ,1))
+        f = ((τ-d.θ1)^(d.λ)) / ((d.θ2 - d.θ1)^(1+d.λ) * (1/(1+d.λ)))
         #f = ((τ-t1)^(λ)) / ((t2 - t1)^(1+λ) * Bpositive)
     end
     return(f)

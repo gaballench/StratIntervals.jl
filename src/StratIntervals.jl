@@ -4,7 +4,6 @@ module StratIntervals
 # include these with using Module: fun1 fun2 etc
 using Distributions
 using Random
-using SpecialFunctions
 using StatsPlots
 using Turing
 using QuadGK
@@ -15,8 +14,8 @@ using KernelDensity
 # functions to export for the users to call
 export
     # distributions.jl
-    foupar_dbeta,
-    threepar_dbeta,
+    #foupar_dbeta,
+    #threepar_dbeta,
     ThreeParBeta,
     pdf,
     logpdf,
@@ -35,7 +34,6 @@ export
     conflate,
     pdf,
     tau_collection
-
     
 include("distributions.jl")
 include("structs.jl")
