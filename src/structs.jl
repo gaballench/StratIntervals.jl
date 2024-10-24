@@ -29,12 +29,12 @@ in this case we can (and in fact should) fix θ1_prior to 0.0
 # examples
 
 ```jldoctest
-julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Exponential(1), Normal(10, 2), Normal(0, 1)) # use priors for all parameters
-julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 1.5, Normal(10, 2), Normal(0, 1)) # fix θ1_prior to 1.5
-julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 1.5, 9.8, Normal(0, 1)) # fix θ1_prior to 1.5 and θ2_prior to 9.8
-julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 1.5, 9.8, 0.0) # this triggers an error
-julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Exponential(1), Normal(10, 2), 1.0) # fix λ_prior to 0.0
-julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 0.0, Normal(10, 2), Normal(0, 1)) # fix θ1_prior to 0.0 because the lineage is extant
+julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), Exponential(1), Normal(0, 1)) # use priors for all parameters
+julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), 1.5, Normal(0, 1)) # fix θ2_prior to 1.5
+julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 9.8, 1.5, Normal(0, 1)) # fix θ2_prior to 1.5 and θ1_prior to 9.8
+julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 9.8, 1.5, 0.0) # this triggers an error
+julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), Exponential(1), 0.0) # fix λ_prior to 0.0
+julia> StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), 0.0, Normal(0, 1)) # fix θ2_prior to 0.0 because the lineage is extant
 ```
 """
 struct StratInterval

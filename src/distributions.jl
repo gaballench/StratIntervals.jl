@@ -9,13 +9,13 @@
 
 Structure for constructing the PDF of stratigraphic interval estimation.
 It is a subtype of `ContinuousUnivariateDitribution`. This structure has three fields,
-corresponding to parameters: bounds on x [θ1,θ2] and the preservation parameter λ. 
+corresponding to parameters: bounds on x [θ1,θ2] _in years before present_ and the preservation parameter λ. 
 
 # examples
 
 ```jldoctest
 julia> using Distributions
-julia> rand(ThreeParBeta(1.0, 5.0, 0.0)) # sample a random number from the ThreeParBeta with params θ1=1.0, θ2=5.0, λ=0.0
+julia> rand(ThreeParBeta(5.0, 1.0, 0.0)) # sample a random number from the ThreeParBeta with params θ1=5.0, θ2=1.0, λ=0.0
 ```
 """
 struct ThreeParBeta <: ContinuousUnivariateDistribution
@@ -36,19 +36,22 @@ The function returns the value of the PDF at a given value of τ.
 
 ```jldoctest
 julia> using Distributions
-julia> pdf(ThreeParBeta(1.0, 5.0, 0.0), 2.5)
+julia> pdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
 ```
 """
 function Distributions.pdf(d::ThreeParBeta, τ::Real)
+    if (d.θ2 > d.θ1)
+        error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
+    end
     #threepar_dbeta(d.τ, d.θ1, d.θ2, d.λ)
     if (d.λ <= 0)
         #println("Calculating under λ <= 0")
         f = ((d.θ1 - τ)^(-d.λ)) / ((d.θ1 - d.θ2)^(1-d.λ) * (1/(1-d.λ)))
-        #f = ((t2 - τ)^(-λ)) / ((t2 - t1)^(1-λ) * Bnegative)
+        #in real scale: f = ((t2 - τ)^(-λ)) / ((t2 - t1)^(1-λ) * Bnegative)
     else
         #println("Calculating under λ > 0")
         f = ((τ-d.θ2)^(d.λ)) / ((d.θ1 - d.θ2)^(1+d.λ) * (1/(1+d.λ)))
-        #f = ((τ-t1)^(λ)) / ((t2 - t1)^(1+λ) * Bpositive)
+        #in real scale: f = ((τ-t1)^(λ)) / ((t2 - t1)^(1+λ) * Bpositive)
     end
     return(f)
 end
@@ -64,7 +67,7 @@ The function returns the value of the logpdf at a given value of τ.
 
 ```jldoctest
 julia> using Distributions
-julia> logpdf(ThreeParBeta(1.0, 5.0, 0.0), 2.5)
+julia> logpdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
 ```
 """
 function Distributions.logpdf(d::ThreeParBeta, τ::Real)
@@ -83,10 +86,13 @@ The function returns the value of the cdf at a given value of τ.
 
 ```jldoctest
 julia> using Distributions
-julia> cdf(ThreeParBeta(1.0, 5.0, 0.0), 2.5)
+julia> cdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
 ```
 """
 function Distributions.cdf(d::ThreeParBeta, τ::Real)
+    if (d.θ2 > d.θ1)
+        error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
+    end
     # standardise to use the code for the Beta distribution
     x = (τ - d.θ2) / (d.θ1 - d.θ2)
     # calculate the cdf on the standard beta with the reparametrisation α,β -> λ
@@ -110,10 +116,13 @@ and `Distributions.quantile(d::UnivariateDistribution, q::Real)`.
 
 ```jldoctest
 julia> using Distributions
-julia> quantile(ThreeParBeta(1.0, 5.0, 0.0), 0.5) # calculate the median of the distribution
+julia> quantile(ThreeParBeta(5.0, 1.0, 0.0), 0.5) # calculate the median of the distribution
 ```
 """
 function Distributions.quantile(d::ThreeParBeta, q::Real)
+    if (d.θ2 > d.θ1)
+        error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
+    end
     # standardise to use the code for the Beta distribution
     #x = (τ - θ1) / (θ2 - θ1)
     # calculate the cdf on the standard beta with the reparametrisation α,β -> λ
@@ -131,17 +140,21 @@ end
     Distributions.minimum(d::ThreeParBeta)
 
 This method extends the minimum function for the type ThreeParBeta. See `Distributions.pdf`.
-This function returns the minimum bound in the support of the ThreeParBeta distribution.
+This function returns the _numerical_ minimum bound in the support of the ThreeParBeta distribution.
 It is the parameter θ2.
 
 # examples
 
 ```jldoctest
 julia> using Distributions
-julia> minimum(ThreeParBeta(1.0, 5.0, 0.0))
+julia> minimum(ThreeParBeta(5.0, 1.0, 0.0))
 ```
 """
 function Distributions.minimum(d::ThreeParBeta)
+    if (d.θ2 > d.θ1)
+        error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
+    end
+    # returning the numerical minimum, which is actually the maximum in years before present
     return d.θ2
 end
 
@@ -150,17 +163,21 @@ end
     Distributions.maximum(d::ThreeParBeta)
 
 This method extends the maximum function for the type ThreeParBeta. See `Distributions.pdf`.
-This function returns the maximum bound in the support of the ThreeParBeta distribution.
+This function returns the _numerical_ maximum bound in the support of the ThreeParBeta distribution.
 It is the parameter θ1.
 
 # examples
 
 ```jldoctest
 julia> using Distributions
-julia> maximum(ThreeParBeta(1.0, 5.0, 0.0))
+julia> maximum(ThreeParBeta(5.0, 1.0, 0.0))
 ```
 """
 function Distributions.maximum(d::ThreeParBeta)
+    if (d.θ2 > d.θ1)
+        error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
+    end
+    # returning the numerical maximum, which is actually the maximum in years before present
     return d.θ1
 end
 
@@ -175,11 +192,14 @@ This function returns a Boolean being `true` if τ is in the support [θ1,θ2] o
 
 ```jldoctest
 julia> using Distributions
-julia> insupport(ThreeParBeta(1.0, 5.0, 0.0), 0.5) # false
-julia> insupport(ThreeParBeta(1.0, 5.0, 0.0), 3.2) # true
+julia> insupport(ThreeParBeta(5.0, 1.0, 0.0), 0.5) # false
+julia> insupport(ThreeParBeta(5.0, 1.0, 0.0), 3.2) # true
 ```
 """
 function Distributions.insupport(d::ThreeParBeta, τ::Real)
+    if (d.θ2 > d.θ1)
+        error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
+    end
     return d.θ2 <= τ <= d.θ1
 end
 
@@ -208,11 +228,14 @@ when called with only the distribution specification, or a vector of Float64 whe
 
 ```jldoctest
 julia> using Distributions
-julia> rand(ThreeParBeta(1.0, 5.0, 0.0)) # return a single random number
-julia> rand(ThreeParBeta(1.0, 5.0, 0.0), 10) # return a vector of 10 random numbers
+julia> rand(ThreeParBeta(5.0, 1.0, 0.0)) # return a single random number
+julia> rand(ThreeParBeta(5.0, 1.0, 0.0), 10) # return a vector of 10 random numbers
 ```
 """
 function Base.rand(rng::AbstractRNG, d::ThreeParBetaSampler)
+    if (d.θ2 > d.θ1)
+        error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
+    end
     if d.λ <= 0
         α = 1
         β = 1-d.λ

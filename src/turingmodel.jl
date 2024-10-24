@@ -13,7 +13,7 @@ and finally the last argument specifies whether we want to calculate the posteri
 ```jldoctest
 julia> using Distributions
 julia> using Turing
-julia> my_strinterval = StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Exponential(1), Normal(10, 2), Normal(0, 1))
+julia> my_strinterval = StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), Exponential(1), Normal(0, 1))
 julia> sample_stratinterval(my_strinterval, 10000, NUTS(), true, false) # sample from prior
 julia> sample_stratinterval(my_strinterval, 10000, NUTS(), false, false) # sample from posterior
 julia> sample_stratinterval(my_strinterval, 10000, NUTS(), false, true) # sample from posterior and calculate posterior predictive of tau
@@ -54,7 +54,7 @@ function sample_stratinterval(data_priors::StratInterval, iters, sampler, prior,
             λ ~ λ_prior
         end
         # reject values outside the support of the parameters
-        if θ1 > minimum(τ) || θ2 < maximum(τ) || θ1 < 0 || θ2 < 0
+        if θ2 > minimum(τ) || θ1 < maximum(τ) || θ1 < 0 || θ2 < 0
             Turing.@addlogprob! -Inf
             return nothing
         end
@@ -128,16 +128,16 @@ julia> ndata = 100
 julia> iters = 10000
 julia> # first interval
 julia> true_lambda_1 = 0
-julia> true_theta1_1 = 10
-julia> true_theta2_1 = 22
+julia> true_theta2_1 = 10
+julia> true_theta1_1 = 22
 julia> data_1 = rand(ThreeParBeta(true_theta1_1, true_theta2_1, true_lambda_1), ndata)
 julia> # second interval
 julia> true_lambda_2 = 1
-julia> true_theta1_2 = 15
-julia> true_theta2_2 = 30
+julia> true_theta2_2 = 15
+julia> true_theta1_2 = 30
 julia> data_2 = rand(ThreeParBeta(true_theta1_2, true_theta2_2, true_lambda_2), ndata)
-julia> interval_1 = StratInterval(data_1, Exponential(10), Normal(22, 3), Normal(0,3))
-julia> interval_2 = StratInterval(data_2, Exponential(15), Normal(30, 3), Normal(1,3))
+julia> interval_1 = StratInterval(data_1, Normal(22, 3), Exponential(10), Normal(0,3))
+julia> interval_2 = StratInterval(data_2, Normal(30, 3), Exponential(15), Normal(1,3))
 julia> # construct the vector of StratIntervals
 julia> vecinterval = [interval_1, interval_2]
 julia> # MCMC sampling
