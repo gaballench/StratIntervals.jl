@@ -43,11 +43,11 @@ function Distributions.pdf(d::ThreeParBeta, τ::Real)
     #threepar_dbeta(d.τ, d.θ1, d.θ2, d.λ)
     if (d.λ <= 0)
         #println("Calculating under λ <= 0")
-        f = ((d.θ2 - τ)^(-d.λ)) / ((d.θ2 - d.θ1)^(1-d.λ) * (1/(1-d.λ)))
+        f = ((d.θ1 - τ)^(-d.λ)) / ((d.θ1 - d.θ2)^(1-d.λ) * (1/(1-d.λ)))
         #f = ((t2 - τ)^(-λ)) / ((t2 - t1)^(1-λ) * Bnegative)
     else
         #println("Calculating under λ > 0")
-        f = ((τ-d.θ1)^(d.λ)) / ((d.θ2 - d.θ1)^(1+d.λ) * (1/(1+d.λ)))
+        f = ((τ-d.θ2)^(d.λ)) / ((d.θ1 - d.θ2)^(1+d.λ) * (1/(1+d.λ)))
         #f = ((τ-t1)^(λ)) / ((t2 - t1)^(1+λ) * Bpositive)
     end
     return(f)
@@ -88,7 +88,7 @@ julia> cdf(ThreeParBeta(1.0, 5.0, 0.0), 2.5)
 """
 function Distributions.cdf(d::ThreeParBeta, τ::Real)
     # standardise to use the code for the Beta distribution
-    x = (τ - d.θ1) / (d.θ2 - d.θ1)
+    x = (τ - d.θ2) / (d.θ1 - d.θ2)
     # calculate the cdf on the standard beta with the reparametrisation α,β -> λ
     if d.λ <= 0
         cdval = Distributions.cdf(Beta(1,1-d.λ), x)
@@ -123,7 +123,7 @@ function Distributions.quantile(d::ThreeParBeta, q::Real)
         x = Distributions.quantile(Beta(1+d.λ,1), q)
     end
     # de-standardise in order to return the quantile in the support of the ThreeParBeta
-    return x * (d.θ2 - d.θ1) + d.θ1
+    return x * (d.θ1 - d.θ2) + d.θ2
 end
 
 # minimum of the distribution
@@ -132,7 +132,7 @@ end
 
 This method extends the minimum function for the type ThreeParBeta. See `Distributions.pdf`.
 This function returns the minimum bound in the support of the ThreeParBeta distribution.
-It is the parameter θ1.
+It is the parameter θ2.
 
 # examples
 
@@ -142,7 +142,7 @@ julia> minimum(ThreeParBeta(1.0, 5.0, 0.0))
 ```
 """
 function Distributions.minimum(d::ThreeParBeta)
-    return d.θ1
+    return d.θ2
 end
 
 # maximum of the distribution
@@ -151,7 +151,7 @@ end
 
 This method extends the maximum function for the type ThreeParBeta. See `Distributions.pdf`.
 This function returns the maximum bound in the support of the ThreeParBeta distribution.
-It is the parameter θ2.
+It is the parameter θ1.
 
 # examples
 
@@ -161,7 +161,7 @@ julia> maximum(ThreeParBeta(1.0, 5.0, 0.0))
 ```
 """
 function Distributions.maximum(d::ThreeParBeta)
-    return d.θ2
+    return d.θ1
 end
 
 # test whether a value is in the support of the distribution
@@ -180,7 +180,7 @@ julia> insupport(ThreeParBeta(1.0, 5.0, 0.0), 3.2) # true
 ```
 """
 function Distributions.insupport(d::ThreeParBeta, τ::Real)
-    return d.θ1 <= τ <= d.θ2
+    return d.θ2 <= τ <= d.θ1
 end
 
 ### sampler for the ThreeParBeta
@@ -221,5 +221,5 @@ function Base.rand(rng::AbstractRNG, d::ThreeParBetaSampler)
         β = 1
     end
     sample = rand(rng, d.distribution(α,β))
-    return sample * (d.θ2 - d.θ1) + d.θ1
+    return sample * (d.θ1 - d.θ2) + d.θ2
 end
