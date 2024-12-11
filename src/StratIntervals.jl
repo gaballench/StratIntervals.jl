@@ -10,11 +10,13 @@ using QuadGK
 using DataFrames
 using Interpolations
 using KernelDensity
+using SpecialFunctions
 
 # functions to export for the users to call
 export
     # distributions.jl
     ThreeParBeta,
+    FourParBeta,
     pdf,
     logpdf,
     cdf,
@@ -23,6 +25,7 @@ export
     maximum,
     insupport,
     ThreeParBetaSampler,
+    FourParBetaSampler,
     rand,
     # structs.jl
     StratInterval,
