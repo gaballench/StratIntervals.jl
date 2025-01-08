@@ -17,6 +17,7 @@ export
     # distributions.jl
     ThreeParBeta,
     FourParBeta,
+    RefOffExponential,
     pdf,
     logpdf,
     cdf,
@@ -26,6 +27,7 @@ export
     insupport,
     ThreeParBetaSampler,
     FourParBetaSampler,
+    RefOffExponentialSampler,
     rand,
     # structs.jl
     StratInterval,

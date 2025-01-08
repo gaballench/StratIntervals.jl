@@ -476,3 +476,237 @@ function Base.rand(rng::AbstractRNG, d::FourParBetaSampler)
     sample = rand(rng, d.distribution(α,β))
     return sample * (d.θ1 - d.θ2) + d.θ2
 end
+
+##############################
+### RefOff distributions
+### a.k.a. reflected-offset
+##############################
+
+################
+### RefOffExponential
+################
+
+### define a subtype
+"""
+    RefOffExponential
+
+Structure for constructing the PDF of a reflected and offset exponential distribution.
+It is a subtype of `ContinuousUnivariateDitribution`. This structure has three fields,
+corresponding to parameters: theta, offset, and reflect. 
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> rand(RefOffExponential(1, 10.0, 1)) # sample a random number from the RefOffExponential with params θ=1.0, o=10.0, ρ=1
+```
+"""
+struct RefOffExponential <: ContinuousUnivariateDistribution
+    θ::Real
+    o::Real
+    ρ::Real
+end
+
+### define the pdf
+"""
+    Distributions.pdf(d::RefOffExponential, x::Real)
+
+This method extends the pdf for the type RefOffExponential so that the PDF is calculated
+given the parameters θ, o, and ρ.
+The function returns the value of the PDF at a given value of x.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> pdf(RefOffExponential(1, 10.0, 1), 2.5)
+```
+"""
+function Distributions.pdf(d::RefOffExponential, x::Real)
+    f = pdf(Exponential(θ), d.ρ*(x - d.o))
+    return(f)
+end
+
+### define the logpdf
+"""
+    Distributions.logpdf(d::RefOffExponential, x::Real)
+
+This method extends the logpdf function for the type RefOffExponential. See `Distributions.pdf`.
+The function returns the value of the logpdf at a given value of x.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> logpdf(RefOffExponential(1, 10.0, 1), 2.5)
+```
+"""
+function Distributions.logpdf(d::RefOffExponential, x::Real)
+    log(pdf(d, x))
+end
+
+### define the CDF
+# this needs to follow the usage of _delegate_statsfuns so that the object RefOffExponential(θ, o, ρ) can be passed when calling Distributions.cdf as in the standard exponential: Distributions.cdf(Exponential(θ), x) 
+"""
+    Distributions.cdf(d::RefOffExponential, x::Real)
+
+This method extends the cdf function for the type RefOffExponential. See `Distributions.cdf`.
+The function returns the value of the cdf at a given value of x.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> cdf(RefOffExponential(1, 10.0, 1), 2.5)
+```
+"""
+function Distributions.cdf(d::RefOffExponential, x::Real)
+    # standardise to use the code for the Exponential distribution
+    # first undo the offset
+    x = x + d.o
+    # calculate the cdf on the standard beta
+    # if reflected, this is actually de-reflects and does 1-cdf
+    if (d.ρ == 1)
+        cdval = Distributions.cdf(Exponential(θ), x)
+    else
+        x = d.ρ*x
+        cdval = 1 - Distributions.cdf(Exponential(θ), x)
+    end
+    # de-standardisation is not necessary as we are returning y, not the cdvalue
+    return cdval
+end
+
+### define quantile
+"""
+    Distributions.quantile(d::RefOffExponential, q::Real)
+
+This method extends the quantile function for the type RefOffExponential. See `Distributions.quantile`
+and `Distributions.quantile(d::UnivariateDistribution, q::Real)`.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> quantile(RefOffExponential(1, 10.0, 1), 0.5) # calculate the median of the distribution
+```
+"""
+function Distributions.quantile(d::RefOffExponential, q::Real)
+    # calculate the quantile on the standard beta, if reflected, calculate the complement on the reflected standard
+    if (d.ρ == 1)
+        x = d.o + Distributions.quantile(Exponential(θ), q)
+    else
+        x = d.o + Distributions.quantile(Exponential(θ), 1-q)
+    end
+    # re-reflect and re-offset if necessary
+    
+    return d.ρ*(x - d.o)
+end
+
+# minimum of the distribution
+"""
+    Distributions.minimum(d::RefOffExponential)
+
+This method extends the minimum function for the type RefOffExponential. See `Distributions.minimum`.
+This function returns the _numerical_ minimum bound in the support of the RefOffExponential distribution.
+It depends on whether it is reflected and offset or not.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> minimum(RefOffExponential(1, 10.0, 1))
+```
+"""
+function Distributions.minimum(d::RefOffExponential)
+    # if reflected, -Inf, else, offset
+    if (d.ρ == -1)
+        x = -Inf
+    else
+        x = d.o
+    end    
+    return x 
+end
+
+# maximum of the distribution
+"""
+    Distributions.maximum(d::RefOffExponential)
+
+This method extends the minimum function for the type RefOffExponential. See `Distributions.minimum`.
+This function returns the _numerical_ minimum bound in the support of the RefOffExponential distribution.
+It depends on whether it is reflected and offset or not.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> minimum(RefOffExponential(1, 10.0, 1))
+```
+"""
+function Distributions.maximum(d::RefOffExponential)
+    # standard, Inf, else, offset
+    if (d.ρ == 1)
+        x = Inf
+    else
+        x = d.o
+    end    
+    return x 
+end
+
+# test whether a value is in the support of the distribution
+"""
+    Distributions.insupport(d::RefOffExponential, x::Real)
+
+This method extends the insupport function for the type RefOffExponential. See `Distributions.insupport`.
+This function returns a Boolean being `true` if x is in the support (-Inf,offset] when ρ = -1, or [offset,Inf) when
+standard, possible offset, and `false` otherwise.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> insupport(RefOffExponential(1, 10.0, 1), 0.5) # false
+julia> insupport(RefOffExponential(1, 10.0, 1), 12.0) # true
+```
+"""
+function Distributions.insupport(d::RefOffExponential, x::Real)
+    if (d.ρ == 1)
+        return d.o <= x < Inf
+    end
+    if (d.ρ == -1)
+        return -Inf < x <= d.o
+    end
+end
+
+### sampler for the RefOffExponential
+"""
+    RefOffExponentialSampler
+
+This structure provides the parameters and function type for the RefOffExponential, to be used with `Distributions.rand`.
+It is a subtype Sampleable of type Univariate, Continuous.
+"""
+struct RefOffExponentialSampler <: Sampleable{Univariate, Continuous}
+    distribution::Exponential
+    θ::Real
+    o::Real
+    ρ::Real
+end
+
+# rand method for the RefOffExponential sampler
+"""
+    Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
+
+This method extends the random sampler for the RefOffExponential. It will return a single random Float64 from the RefOffExponential
+when called with only the distribution specification, or a vector of Float64 when specifying how many numbers to sample.
+
+# examples
+
+```jldoctest
+julia> using Distributions
+julia> rand(RefOffExponential(1, 10.0, 1)) # return a single random number
+julia> rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random numbers
+```
+"""
+function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
+    sample = rand(rng, d.distribution(θ))
+    return d.ρ * (sample - d.o)
+end
