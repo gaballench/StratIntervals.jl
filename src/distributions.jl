@@ -61,7 +61,7 @@ end
 """
     Distributions.logpdf(d::ThreeParBeta, τ::Real)
 
-This method extends the logpdf function for the type ThreeParBeta. See `Distributions.pdf`.
+This method extends the logpdf function for the type ThreeParBeta. See `Distributions.logpdf`.
 The function returns the value of the logpdf at a given value of τ.
 
 # examples
@@ -80,7 +80,7 @@ end
 """
     Distributions.cdf(d::ThreeParBeta, τ::Real)
 
-This method extends the cdf function for the type ThreeParBeta. See `Distributions.pdf`.
+This method extends the cdf function for the type ThreeParBeta. See `Distributions.cdf`.
 The function returns the value of the cdf at a given value of τ.
 
 # examples
@@ -110,7 +110,7 @@ end
 """
     Distributions.quantile(d::ThreeParBeta, q::Real)
 
-This method extends the quantile function for the type ThreeParBeta. See `Distributions.pdf`
+This method extends the quantile function for the type ThreeParBeta. See `Distributions.quantile`
 and `Distributions.quantile(d::UnivariateDistribution, q::Real)`.
 
 # examples
@@ -140,7 +140,7 @@ end
 """
     Distributions.minimum(d::ThreeParBeta)
 
-This method extends the minimum function for the type ThreeParBeta. See `Distributions.pdf`.
+This method extends the minimum function for the type ThreeParBeta. See `Distributions.minimum`.
 This function returns the _numerical_ minimum bound in the support of the ThreeParBeta distribution.
 It is the parameter θ2.
 
@@ -163,7 +163,7 @@ end
 """
     Distributions.maximum(d::ThreeParBeta)
 
-This method extends the maximum function for the type ThreeParBeta. See `Distributions.pdf`.
+This method extends the maximum function for the type ThreeParBeta. See `Distributions.maximum`.
 This function returns the _numerical_ maximum bound in the support of the ThreeParBeta distribution.
 It is the parameter θ1.
 
@@ -186,7 +186,7 @@ end
 """
     Distributions.insupport(d::ThreeParBeta)
 
-This method extends the insupport function for the type ThreeParBeta. See `Distributions.pdf`.
+This method extends the insupport function for the type ThreeParBeta. See `Distributions.insupport`.
 This function returns a Boolean being `true` if τ is in the support [θ1,θ2] of the ThreeParBeta distribution and `false` otherwise.
 
 # examples
@@ -304,7 +304,7 @@ end
 """
     Distributions.logpdf(d::FourParBeta, τ::Real)
 
-This method extends the logpdf function for the type FourParBeta. See `Distributions.pdf`.
+This method extends the logpdf function for the type FourParBeta. See `Distributions.logpdf`.
 The function returns the value of the logpdf at a given value of τ.
 
 # examples
@@ -323,7 +323,7 @@ end
 """
     Distributions.cdf(d::FourParBeta, τ::Real)
 
-This method extends the cdf function for the type FourParBeta. See `Distributions.pdf`.
+This method extends the cdf function for the type FourParBeta. See `Distributions.cdf`.
 The function returns the value of the cdf at a given value of τ.
 
 # examples
@@ -349,7 +349,7 @@ end
 """
     Distributions.quantile(d::FourParBeta, q::Real)
 
-This method extends the quantile function for the type FourParBeta. See `Distributions.pdf`
+This method extends the quantile function for the type FourParBeta. See `Distributions.quantile`
 and `Distributions.quantile(d::UnivariateDistribution, q::Real)`.
 
 # examples
@@ -375,7 +375,7 @@ end
 """
     Distributions.minimum(d::FourParBeta)
 
-This method extends the minimum function for the type FourParBeta. See `Distributions.pdf`.
+This method extends the minimum function for the type FourParBeta. See `Distributions.minimum`.
 This function returns the _numerical_ minimum bound in the support of the FourParBeta distribution.
 It is the parameter θ2.
 
@@ -398,7 +398,7 @@ end
 """
     Distributions.maximum(d::FourParBeta)
 
-This method extends the maximum function for the type FourParBeta. See `Distributions.pdf`.
+This method extends the maximum function for the type FourParBeta. See `Distributions.maximum`.
 This function returns the _numerical_ maximum bound in the support of the FourParBeta distribution.
 It is the parameter θ1.
 
@@ -421,7 +421,7 @@ end
 """
     Distributions.insupport(d::FourParBeta)
 
-This method extends the insupport function for the type FourParBeta. See `Distributions.pdf`.
+This method extends the insupport function for the type FourParBeta. See `Distributions.insupport`.
 This function returns a Boolean being `true` if τ is in the support [θ1,θ2] of the FourParBeta distribution and `false` otherwise.
 
 # examples
@@ -531,7 +531,7 @@ end
 """
     Distributions.logpdf(d::RefOffExponential, x::Real)
 
-This method extends the logpdf function for the type RefOffExponential. See `Distributions.pdf`.
+This method extends the logpdf function for the type RefOffExponential. See `Distributions.logpdf`.
 The function returns the value of the logpdf at a given value of x.
 
 # examples
@@ -631,8 +631,8 @@ end
 """
     Distributions.maximum(d::RefOffExponential)
 
-This method extends the minimum function for the type RefOffExponential. See `Distributions.minimum`.
-This function returns the _numerical_ minimum bound in the support of the RefOffExponential distribution.
+This method extends the maximum function for the type RefOffExponential. See `Distributions.maximum`.
+This function returns the _numerical_ maximum bound in the support of the RefOffExponential distribution.
 It depends on whether it is reflected and offset or not.
 
 # examples
