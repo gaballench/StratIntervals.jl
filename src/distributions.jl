@@ -293,10 +293,10 @@ function Distributions.pdf(d::FourParBeta, τ::Real)
     if (d.θ2 > d.θ1)
         error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
     end
-    if (α <= 0.0 | β <= 0.0)
+    if (d.α <= 0.0 | d.β <= 0.0)
         error("Both α and β need to be larger than 0")
     end
-    f = ((τ-θ2)^(α - 1) * (θ1-τ)^(β - 1)) / ((θ1-θ2)^(α+β-1) * SpecialFunctions.beta(α,β))
+    f = ((τ-d.θ2)^(d.α - 1) * (d.θ1-τ)^(d.β - 1)) / ((d.θ1-d.θ2)^(d.α+d.β-1) * SpecialFunctions.beta(d.α,d.β))
     return(f)
 end
 
@@ -340,7 +340,7 @@ function Distributions.cdf(d::FourParBeta, τ::Real)
     # standardise to use the code for the Beta distribution
     x = (τ - d.θ2) / (d.θ1 - d.θ2)
     # calculate the cdf on the standard beta
-    cdval = Distributions.cdf(Beta(α,β), x)
+    cdval = Distributions.cdf(Beta(d.α,d.β), x)
     # de-standardisation is not necessary as we are returning y, not the cdvalue
     return cdval
 end
@@ -366,7 +366,7 @@ function Distributions.quantile(d::FourParBeta, q::Real)
     # standardise to use the code for the Beta distribution
     #x = (τ - θ1) / (θ2 - θ1)
     # calculate the cdf on the standard beta
-    x = Distributions.quantile(Beta(α,β), q)
+    x = Distributions.quantile(Beta(d.α,d.β), q)
     # de-standardise in order to return the quantile in the support of the FourParBeta
     return x * (d.θ1 - d.θ2) + d.θ2
 end
@@ -473,7 +473,7 @@ function Base.rand(rng::AbstractRNG, d::FourParBetaSampler)
     if (d.θ2 > d.θ1)
         error("θ2 is greater than θ1, time needs to be in years before present, the other way around")
     end
-    sample = rand(rng, d.distribution(α,β))
+    sample = rand(rng, d.distribution(d.α,d.β))
     return sample * (d.θ1 - d.θ2) + d.θ2
 end
 
@@ -523,7 +523,7 @@ julia> pdf(RefOffExponential(1, 10.0, 1), 2.5)
 ```
 """
 function Distributions.pdf(d::RefOffExponential, x::Real)
-    f = pdf(Exponential(θ), d.ρ*(x - d.o))
+    f = pdf(Exponential(d.θ), d.ρ*(x - d.o))
     return(f)
 end
 
@@ -567,10 +567,10 @@ function Distributions.cdf(d::RefOffExponential, x::Real)
     # calculate the cdf on the standard beta
     # if reflected, this is actually de-reflects and does 1-cdf
     if (d.ρ == 1)
-        cdval = Distributions.cdf(Exponential(θ), x)
+        cdval = Distributions.cdf(Exponential(d.θ), x)
     else
         x = d.ρ*x
-        cdval = 1 - Distributions.cdf(Exponential(θ), x)
+        cdval = 1 - Distributions.cdf(Exponential(d.θ), x)
     end
     # de-standardisation is not necessary as we are returning y, not the cdvalue
     return cdval
@@ -593,9 +593,9 @@ julia> quantile(RefOffExponential(1, 10.0, 1), 0.5) # calculate the median of th
 function Distributions.quantile(d::RefOffExponential, q::Real)
     # calculate the quantile on the standard beta, if reflected, calculate the complement on the reflected standard
     if (d.ρ == 1)
-        x = d.o + Distributions.quantile(Exponential(θ), q)
+        x = d.o + Distributions.quantile(Exponential(d.θ), q)
     else
-        x = d.o + Distributions.quantile(Exponential(θ), 1-q)
+        x = d.o + Distributions.quantile(Exponential(d.θ), 1-q)
     end
     # re-reflect and re-offset if necessary
     
@@ -707,6 +707,6 @@ julia> rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random nu
 ```
 """
 function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
-    sample = rand(rng, d.distribution(θ))
+    sample = rand(rng, d.distribution(d.θ))
     return d.ρ * (sample - d.o)
 end
