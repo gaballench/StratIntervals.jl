@@ -13,6 +13,7 @@ and finally the last argument specifies whether we want to calculate the posteri
 ```jldoctest
 julia> using Distributions
 julia> using Turing
+julia> using StratIntervals
 julia> my_strinterval = StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), Exponential(1), Normal(0, 1))
 julia> sample_stratinterval(my_strinterval, 10000, NUTS(), true, false) # sample from prior
 julia> sample_stratinterval(my_strinterval, 10000, NUTS(), false, false) # sample from posterior
