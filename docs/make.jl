@@ -6,7 +6,11 @@ using Documenter
 #Pkg.add(PackageSpec(name="StratIntervals", rev="main"))
 
 using StratIntervals
-DocMeta.setdocmeta!(StratIntervals, :DocTestSetup, :(using StratIntervals); recursive=true)
+using Distributions
+using Turing
+
+push!(LOAD_PATH,"../src/")
+#DocMeta.setdocmeta!(StratIntervals, :DocTestSetup, :(using StratIntervals); recursive=true)
 #using PhyloPlots # to trigger any precompilation warning outside jldoctests
 
 makedocs(
@@ -47,5 +51,8 @@ makedocs(
 
 deploydocs(
     repo = "github.com/gaballench/StratIntervals.jl.git",
+    target = "build",
+    deps   = nothing,
+    make   = nothing,
     push_preview = true,
 )
