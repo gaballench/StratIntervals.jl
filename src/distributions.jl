@@ -17,10 +17,10 @@ corresponding to parameters: bounds on x [θ1,θ2] _in years before present_ and
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #rand(ThreeParBeta(5.0, 1.0, 0.0)) # sample a random number from the ThreeParBeta with params θ1=5.0, θ2=1.0, λ=0.0
-#```
+```@example
+julia> using Distributions
+julia> rand(ThreeParBeta(5.0, 1.0, 0.0)) # sample a random number from the ThreeParBeta with params θ1=5.0, θ2=1.0, λ=0.0
+```
 """
 struct ThreeParBeta <: ContinuousUnivariateDistribution
     θ1::Real
@@ -38,10 +38,10 @@ The function returns the value of the PDF at a given value of τ.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #pdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> pdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
+```
 """
 function Distributions.pdf(d::ThreeParBeta, τ::Real)
     if (d.θ2 > d.θ1)
@@ -66,10 +66,10 @@ The function returns the value of the logpdf at a given value of τ.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #logpdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> logpdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
+```
 """
 function Distributions.logpdf(d::ThreeParBeta, τ::Real)
     log(pdf(d, τ))
@@ -85,10 +85,10 @@ The function returns the value of the cdf at a given value of τ.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #cdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> cdf(ThreeParBeta(5.0, 1.0, 0.0), 2.5)
+```
 """
 function Distributions.cdf(d::ThreeParBeta, τ::Real)
     if (d.θ2 > d.θ1)
@@ -115,10 +115,10 @@ and `Distributions.quantile(d::UnivariateDistribution, q::Real)`.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #quantile(ThreeParBeta(5.0, 1.0, 0.0), 0.5) # calculate the median of the distribution
-#```
+```@example
+julia> using Distributions
+julia> quantile(ThreeParBeta(5.0, 1.0, 0.0), 0.5) # calculate the median of the distribution
+```
 """
 function Distributions.quantile(d::ThreeParBeta, q::Real)
     if (d.θ2 > d.θ1)
@@ -146,10 +146,10 @@ It is the parameter θ2.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #minimum(ThreeParBeta(5.0, 1.0, 0.0))
-#```
+```@example
+julia> using Distributions
+julia> minimum(ThreeParBeta(5.0, 1.0, 0.0))
+```
 """
 function Distributions.minimum(d::ThreeParBeta)
     if (d.θ2 > d.θ1)
@@ -169,10 +169,10 @@ It is the parameter θ1.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #maximum(ThreeParBeta(5.0, 1.0, 0.0))
-#```
+```@example
+julia> using Distributions
+julia> maximum(ThreeParBeta(5.0, 1.0, 0.0))
+```
 """
 function Distributions.maximum(d::ThreeParBeta)
     if (d.θ2 > d.θ1)
@@ -191,11 +191,11 @@ This function returns a Boolean being `true` if τ is in the support [θ1,θ2] o
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #insupport(ThreeParBeta(5.0, 1.0, 0.0), 0.5) # false
-julia> #insupport(ThreeParBeta(5.0, 1.0, 0.0), 3.2) # true
-#```
+```@example
+julia> using Distributions
+julia> insupport(ThreeParBeta(5.0, 1.0, 0.0), 0.5) # false
+julia> insupport(ThreeParBeta(5.0, 1.0, 0.0), 3.2) # true
+```
 """
 function Distributions.insupport(d::ThreeParBeta, τ::Real)
     if (d.θ2 > d.θ1)
@@ -227,11 +227,11 @@ when called with only the distribution specification, or a vector of Float64 whe
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #rand(ThreeParBeta(5.0, 1.0, 0.0)) # return a single random number
-julia> #rand(ThreeParBeta(5.0, 1.0, 0.0), 10) # return a vector of 10 random numbers
-#```
+```@example
+julia> using Distributions
+julia> rand(ThreeParBeta(5.0, 1.0, 0.0)) # return a single random number
+julia> rand(ThreeParBeta(5.0, 1.0, 0.0), 10) # return a vector of 10 random numbers
+```
 """
 function Base.rand(rng::AbstractRNG, d::ThreeParBetaSampler)
     if (d.θ2 > d.θ1)
@@ -262,10 +262,10 @@ corresponding to parameters: bounds on x [θ1,θ2] _in years before present_ and
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #rand(FourParBeta(5.0, 1.0, 1.0, 1.0)) # sample a random number from the FourParBeta with params θ1=5.0, θ2=1.0, α=1.0, β=1.0
-#```
+```@example
+julia> using Distributions
+julia> rand(FourParBeta(5.0, 1.0, 1.0, 1.0)) # sample a random number from the FourParBeta with params θ1=5.0, θ2=1.0, α=1.0, β=1.0
+```
 """
 struct FourParBeta <: ContinuousUnivariateDistribution
     θ1::Real
@@ -284,10 +284,10 @@ The function returns the value of the PDF at a given value of τ.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #pdf(FourParBeta(5.0, 1.0, 1.0, 1.0), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> pdf(FourParBeta(5.0, 1.0, 1.0, 1.0), 2.5)
+```
 """
 function Distributions.pdf(d::FourParBeta, τ::Real)
     if (d.θ2 > d.θ1)
@@ -309,10 +309,10 @@ The function returns the value of the logpdf at a given value of τ.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #logpdf(FourParBeta(5.0, 1.0, 1.0, 1.0), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> logpdf(FourParBeta(5.0, 1.0, 1.0, 1.0), 2.5)
+```
 """
 function Distributions.logpdf(d::FourParBeta, τ::Real)
     log(pdf(d, τ))
@@ -328,10 +328,10 @@ The function returns the value of the cdf at a given value of τ.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #cdf(FourParBeta(5.0, 1.0, 1.0, 1.0), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> cdf(FourParBeta(5.0, 1.0, 1.0, 1.0), 2.5)
+```
 """
 function Distributions.cdf(d::FourParBeta, τ::Real)
     if (d.θ2 > d.θ1)
@@ -354,10 +354,10 @@ and `Distributions.quantile(d::UnivariateDistribution, q::Real)`.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #quantile(FourParBeta(5.0, 1.0, 1.0, 1.0), 0.5) # calculate the median of the distribution
-#```
+```@example
+julia> using Distributions
+julia> quantile(FourParBeta(5.0, 1.0, 1.0, 1.0), 0.5) # calculate the median of the distribution
+```
 """
 function Distributions.quantile(d::FourParBeta, q::Real)
     if (d.θ2 > d.θ1)
@@ -381,10 +381,10 @@ It is the parameter θ2.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #minimum(FourParBeta(5.0, 1.0, 1.0, 1.0))
-#```
+```@example
+julia> using Distributions
+julia> minimum(FourParBeta(5.0, 1.0, 1.0, 1.0))
+```
 """
 function Distributions.minimum(d::FourParBeta)
     if (d.θ2 > d.θ1)
@@ -404,10 +404,10 @@ It is the parameter θ1.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #maximum(FourParBeta(5.0, 1.0, 1.0, 1.0))
-#```
+```@example
+julia> using Distributions
+julia> maximum(FourParBeta(5.0, 1.0, 1.0, 1.0))
+```
 """
 function Distributions.maximum(d::FourParBeta)
     if (d.θ2 > d.θ1)
@@ -426,11 +426,11 @@ This function returns a Boolean being `true` if τ is in the support [θ1,θ2] o
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #insupport(FourParBeta(5.0, 1.0, 1.0, 1.0), 0.5) # false
-julia> #insupport(FourParBeta(5.0, 1.0, 1.0, 1.0), 3.2) # true
-#```
+```@example
+julia> using Distributions
+julia> insupport(FourParBeta(5.0, 1.0, 1.0, 1.0), 0.5) # false
+julia> insupport(FourParBeta(5.0, 1.0, 1.0, 1.0), 3.2) # true
+```
 """
 function Distributions.insupport(d::FourParBeta, τ::Real)
     if (d.θ2 > d.θ1)
@@ -463,11 +463,11 @@ when called with only the distribution specification, or a vector of Float64 whe
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #rand(FourParBeta(5.0, 1.0, 1.0, 1.0)) # return a single random number
-julia> #rand(FourParBeta(5.0, 1.0, 1.0, 1.0), 10) # return a vector of 10 random numbers
-#```
+```@example
+julia> using Distributions
+julia> rand(FourParBeta(5.0, 1.0, 1.0, 1.0)) # return a single random number
+julia> rand(FourParBeta(5.0, 1.0, 1.0, 1.0), 10) # return a vector of 10 random numbers
+```
 """
 function Base.rand(rng::AbstractRNG, d::FourParBetaSampler)
     if (d.θ2 > d.θ1)
@@ -496,10 +496,10 @@ corresponding to parameters: theta, offset, and reflect.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #rand(RefOffExponential(1, 10.0, 1)) # sample a random number from the RefOffExponential with params θ=1.0, o=10.0, ρ=1
-#```
+```@example
+julia> using Distributions
+julia> rand(RefOffExponential(1, 10.0, 1)) # sample a random number from the RefOffExponential with params θ=1.0, o=10.0, ρ=1
+```
 """
 struct RefOffExponential <: ContinuousUnivariateDistribution
     θ::Real
@@ -517,10 +517,10 @@ The function returns the value of the PDF at a given value of x.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #pdf(RefOffExponential(1, 10.0, 1), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> pdf(RefOffExponential(1, 10.0, 1), 2.5)
+```
 """
 function Distributions.pdf(d::RefOffExponential, x::Real)
     f = pdf(Exponential(d.θ), d.ρ*(x - d.o))
@@ -536,10 +536,10 @@ The function returns the value of the logpdf at a given value of x.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #logpdf(RefOffExponential(1, 10.0, 1), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> logpdf(RefOffExponential(1, 10.0, 1), 2.5)
+```
 """
 function Distributions.logpdf(d::RefOffExponential, x::Real)
     log(pdf(d, x))
@@ -555,10 +555,10 @@ The function returns the value of the cdf at a given value of x.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #cdf(RefOffExponential(1, 10.0, 1), 2.5)
-#```
+```@example
+julia> using Distributions
+julia> cdf(RefOffExponential(1, 10.0, 1), 2.5)
+```
 """
 function Distributions.cdf(d::RefOffExponential, x::Real)
     # standardise to use the code for the Exponential distribution
@@ -585,10 +585,10 @@ and `Distributions.quantile(d::UnivariateDistribution, q::Real)`.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #quantile(RefOffExponential(1, 10.0, 1), 0.5) # calculate the median of the distribution
-#```
+```@example
+julia> using Distributions
+julia> quantile(RefOffExponential(1, 10.0, 1), 0.5) # calculate the median of the distribution
+```
 """
 function Distributions.quantile(d::RefOffExponential, q::Real)
     # calculate the quantile on the standard beta, if reflected, calculate the complement on the reflected standard
@@ -612,10 +612,10 @@ It depends on whether it is reflected and offset or not.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #minimum(RefOffExponential(1, 10.0, 1))
-#```
+```@example
+julia> using Distributions
+julia> minimum(RefOffExponential(1, 10.0, 1))
+```
 """
 function Distributions.minimum(d::RefOffExponential)
     # if reflected, -Inf, else, offset
@@ -637,10 +637,10 @@ It depends on whether it is reflected and offset or not.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #minimum(RefOffExponential(1, 10.0, 1))
-#```
+```@example
+julia> using Distributions
+julia> minimum(RefOffExponential(1, 10.0, 1))
+```
 """
 function Distributions.maximum(d::RefOffExponential)
     # standard, Inf, else, offset
@@ -662,11 +662,11 @@ standard, possible offset, and `false` otherwise.
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #insupport(RefOffExponential(1, 10.0, 1), 0.5) # false
-julia> #insupport(RefOffExponential(1, 10.0, 1), 12.0) # true
-#```
+```@example
+julia> using Distributions
+julia> insupport(RefOffExponential(1, 10.0, 1), 0.5) # false
+julia> insupport(RefOffExponential(1, 10.0, 1), 12.0) # true
+```
 """
 function Distributions.insupport(d::RefOffExponential, x::Real)
     if (d.ρ == 1)
@@ -700,11 +700,11 @@ when called with only the distribution specification, or a vector of Float64 whe
 
 # examples
 
-#```jldoctest
-julia> #using Distributions
-julia> #rand(RefOffExponential(1, 10.0, 1)) # return a single random number
-julia> #rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random numbers
-#```
+```@example
+julia> using Distributions
+julia> rand(RefOffExponential(1, 10.0, 1)) # return a single random number
+julia> rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random numbers
+```
 """
 function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
     sample = rand(rng, d.distribution(d.θ))
