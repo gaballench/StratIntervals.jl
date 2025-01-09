@@ -10,7 +10,7 @@ and finally the last argument specifies whether we want to calculate the posteri
 
 # examples
 
-```jldoctest
+#```jldoctest
 julia> #using Distributions
 julia> #using Turing
 julia> #using StratIntervals
@@ -18,7 +18,7 @@ julia> #my_strinterval = StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2)
 julia> #sample_stratinterval(my_strinterval, 10000, NUTS(), true, false) # sample from prior
 julia> #sample_stratinterval(my_strinterval, 10000, NUTS(), false, false) # sample from posterior
 julia> #sample_stratinterval(my_strinterval, 10000, NUTS(), false, true) # sample from posterior and calculate posterior predictive of tau
-```
+#```
 """
 function sample_stratinterval(data_priors::StratInterval, iters, sampler, prior, postpredict)
     # dismantle the StratInterval object
@@ -122,7 +122,7 @@ and finally the last argument specifies whether we want to calculate the posteri
 
 # examples
 
-```jldoctest
+#```jldoctest
 julia> #using Distributions
 julia> #using Turing
 julia> #ndata = 100
@@ -145,7 +145,7 @@ julia> ## MCMC sampling
 julia> #mystratint_mcmc_vec = sample_stratinterval(vecinterval, iters, NUTS(), false, false)
 julia> ## MCMC sampling and posterior predictive
 julia> #mystratint_postpredict_vec = sample_stratinterval(vecinterval, iters, NUTS(), false, true)
-```
+#```
 """
 function sample_stratinterval(stratintervals::Vector{StratInterval}, iters, sampler, prior, postpredict)
     output = Vector(undef, length(stratintervals))

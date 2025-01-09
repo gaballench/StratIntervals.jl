@@ -8,13 +8,13 @@ x value.
 
 # examples
 
-```jldoctest
+#```jldoctest
 julia> #using Distributions
 julia> #using Random
 julia> #Random.seed!(4);
 julia> #distribs = [Normal(0, 1), Normal(1, 1), Normal(2, 1)]
 julia> #pdf(distribs, 1.5) # evaluate the product of three normals at x=1.5
-```
+#```
 """
 function Distributions.pdf(d::Product, x::Float64)
     xvec = [x]
