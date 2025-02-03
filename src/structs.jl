@@ -38,7 +38,7 @@ StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), 0.0, Normal(0, 1)) # fi
 ```
 """
 struct StratInterval
-    data::Vector{Real}
+    data::Vector{Union{ContinuousUnivariateDistribution,Real}}
     θ1_prior::Union{ContinuousUnivariateDistribution,Float64}
     θ2_prior::Union{ContinuousUnivariateDistribution,Float64}
     λ_prior::Union{ContinuousUnivariateDistribution,Float64}

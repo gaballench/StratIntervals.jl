@@ -22,7 +22,15 @@ sample_stratinterval(my_strinterval, 10000, NUTS(), false, true) # sample from p
 """
 function sample_stratinterval(data_priors::StratInterval, iters, sampler, prior, postpredict)
     # dismantle the StratInterval object
-    data = data_priors.data
+    # if data is a vector of distributions, create the data vector by sampling one rand from each distribution
+    if prod(map(x -> x isa T where T <: ContinuousUnivariateDistribution, data_priors.data))
+        data = map(x -> rand(x, 1)[1], data_priors.data)
+        data = convert(Vector{Real}, data)
+    else
+        # else just get the data from StratInterval
+        data = data_priors.data
+    end
+    # then collect the priors    
     θ1_prior = data_priors.θ1_prior
     θ2_prior = data_priors.θ2_prior
     λ_prior = data_priors.λ_prior    
