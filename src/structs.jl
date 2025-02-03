@@ -6,7 +6,8 @@
     StratInterval(data, θ1_prior, θ2_prior, λ_prior)
 
 This structure allows to input the data for estimation of stratigraphic intervals.
-Four attributes are available: data, a Vector{Real} with the time occurrences,
+Four attributes are available:
+data, a Vector{Real} with the time occurrences, or a Vector{ContinuousUnivariateDistribution} with time intervals instead of point data
 θ1_prior, a ContinuousUnivariateDistribution, specifying the prior on θ1,
 θ2_prior, a ContinuousUnivariateDistribution, specifying the prior on θ2, and
 λ_prior, a ContinuousUnivariateDistribution, specifying the prior on λ.
@@ -35,6 +36,7 @@ StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 9.8, 1.5, Normal(0, 1)) # fix θ2_prio
 StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], 9.8, 1.5, 0.0) # this triggers an error
 StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), Exponential(1), 0.0) # fix λ_prior to 0.0
 StratInterval([2.0, 3.1, 3.2, 4.6, 6.77], Normal(10, 2), 0.0, Normal(0, 1)) # fix θ2_prior to 0.0 because the lineage is extant
+StratInterval([Uniform(0, 2), Uniform(1, 2), Uniform(4, 6), Uniform(5, 9)], Normal(10, 2), Exponential(1), Normal(0, 1)) # intervals instead of point data
 ```
 """
 struct StratInterval
