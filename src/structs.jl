@@ -1,4 +1,3 @@
-
 # struct for the input data into the model
 # data are being used by the loglik inside the Turing model
 #*_prior are passed on to the parameter priors inside the Turing model 
@@ -7,9 +6,13 @@
 
 This structure allows to input the data for estimation of stratigraphic intervals.
 Four attributes are available:
+
 data, a Vector{Real} with the time occurrences, or a Vector{ContinuousUnivariateDistribution} with time intervals instead of point data
+
 θ1_prior, a ContinuousUnivariateDistribution, specifying the prior on θ1,
+
 θ2_prior, a ContinuousUnivariateDistribution, specifying the prior on θ2, and
+
 λ_prior, a ContinuousUnivariateDistribution, specifying the prior on λ.
 
 When sampling all these parameters, the priors need to be distributions. However,
