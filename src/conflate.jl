@@ -1,6 +1,17 @@
 # code for implementing conflation of an arbitrary vector of PDFs
 
 """
+    Distributions.product_distribution(dists::Vector{Normal{Float64}})
+
+Method for making product of Normals to behave as the generic one. The specialised one returning a MvNormal generates issues during conflation when all distribs are normal.
+
+"""
+function Distributions.product_distribution(dists::Vector{Normal{Float64}})
+    return Product(dists)
+end
+
+
+"""
     Distributions.pdf(d::Product, x::Float64)
 
 Method for specifying the product of an arbitrary vector of pdfs to be evaluated at the same
@@ -13,7 +24,7 @@ using Distributions
 using Random
 Random.seed!(4);
 distribs = [Normal(0, 1), Normal(1, 1), Normal(2, 1)]
-pdf(distribs, 1.5) # evaluate the product of three normals at x=1.5
+pdf(product_distribution(distribs), 1.5) # evaluate the product of three normals at x=1.5
 ```
 """
 function Distributions.pdf(d::Product, x::Float64)
