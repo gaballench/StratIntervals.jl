@@ -41,6 +41,20 @@ function Distributions.pdf(d::Product, x::Float64)
 end
 
 # conflation needs to be univariate wrt x. It can be vectorised by taking pdf. 
+
+"""
+    conflate(d::Vector{ContinuousUnivariateDitribution}, x::Float64)
+
+Conflation method for a vector of distributions.
+
+It takes a vector of pdfs and conflate then evaluating the resulting pdf at x.
+
+This is a convenience method for allowing either input as vector or product_distribution
+"""
+function conflate(d::Vector{T} where T <: ContinuousUnivariateDistribution, x::Float64)
+    return conflate(product_distribution(d), x)
+end
+
 """
     conflate(d::Product, x::Float64)
 
@@ -80,7 +94,6 @@ function conflate(d::Array{Float64, 2}, x::Float64)
     denominat, err = quadgk(x -> prod(map(dd -> pdf(dd, x), interpolations)), -Inf, Inf, rtol=1e-8)
     return prod(map(dd -> pdf(dd, x), interpolations))/denominat
 end
-
 
 """
     tau_collection(taus, x::Float64)
