@@ -33,8 +33,21 @@ nothing
 
 ![](conflation_example.svg)
 
+The `conflate` function also supports an input consisting of a vector of distributions, that is, without the need to use `product_distribution` before calling `conflate`:
+
+```@repl
+using Distributions
+using StratIntervals
+
+conflate([Normal(10, 2), Normal(11, 4), Normal(8, 5)], 9.8)
+
+conflate([Uniform(0,1), Uniform(0,1)], 0.5)
+
+nothing
+```
+
 It is also possible to conflate empirical distributions defined by Kernel Densities.
-Supose we have two collections of values in the objects empirica1_vec and empirical2_vec _which are of the same length_, and we want to conflate them:
+Supose we have two collections of values in the objects `empirica1_vec` and `empirical2_vec` _which are of the same length_, and we want to conflate them:
 
 ```@repl
 using Random
