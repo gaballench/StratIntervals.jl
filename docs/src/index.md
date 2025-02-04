@@ -19,8 +19,8 @@ Ballen, G.A. & Reinales, S. (2025). tbea: tools for pre- and post-processing in 
 Genest, C. and Zidek, J. V. (1986). Combining probability pistributions: A critique and an annotated bibliography.
 Statistical Science, 1(1):114–135.
 
-Hill, T. P. (2008). Conflations of probability distributions. Transactions of the American Mathematical Society,
-363:3351–3372.
-
 Hill, T. P. (2011). Conflations of probability distributions. Transactions of the American Mathematical Society,
 363(6):3351–3372.
+
+Hill, T. P. and Miller, J. (2011). How to combine independent data sets for the same quantity. Chaos: An
+Interdisciplinary Journal of Nonlinear Science, 21(3):033102.

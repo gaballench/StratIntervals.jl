@@ -1,6 +1,6 @@
 # Conflation: Combining distributions
 
-Combining different distributions is not straitghforward (Genest and Zidek, 1986). However, the conflation of probability density functions is a useful procedure which combines them provided that each of them is independent (Hill, 2008, 2011).  Assuming that each distribution describing the same parameter is independent, we can define the composite distribution of ``\tau`` for ``M`` intervals as the conflation of individual distributions:
+Combining different distributions is not straitghforward (Genest and Zidek, 1986). However, the conflation of probability density functions is a useful procedure which combines them provided that each of them is independent (Hill, 2011; Hill and Miller, 2011).  Assuming that each distribution describing the same parameter is independent, we can define the composite distribution of ``\tau`` for ``M`` intervals as the conflation of individual distributions:
 
 ```math
 \begin{equation}
@@ -43,7 +43,6 @@ using Random
 using Distributions
 using StatsPlots
 using StratIntervals
-
 Random.seed!(1507)
 
 #empirical1
