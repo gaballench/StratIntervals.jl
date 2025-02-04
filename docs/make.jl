@@ -31,25 +31,6 @@ makedocs(
         "Stratigraphic intervals" => "stratinterval.md",
         "Sampling a stratigraphic interval and posterior predictive" => "turingmodel.md",
         "Public  API" => "api.md",
-        #"Manual" => [
-        #    "Installation" => "man/installation.md",
-        #    "Network manipulation" => "man/netmanipulation.md",
-        #    "Input Data for SNaQ" => "man/inputdata.md",
-        #    "TICR pipeline" => "man/ticr_howtogetQuartetCFs.md",
-        #    "Network estimation and display" => "man/snaq_plot.md",
-        #    "Network comparison and manipulation" => "man/dist_reroot.md",
-        #    "Candidate Networks" => "man/fixednetworkoptim.md",
-        #    "Extract Expected CFs" => "man/expectedCFs.md",
-        #    "Bootstrap" => "man/bootstrap.md",
-        #    "Multiple Alleles" => "man/multiplealleles.md",
-        #    "Continuous Trait Evolution" => "man/trait_tree.md",
-        #    "Parsimony on networks" => "man/parsimony.md",
-        #    "Discrete Trait Evolution" => "man/fitDiscrete.md",
-        #    "Neighbour Joining" => "man/nj.md",
-        #],
-        #"Library" => [
-        #    "Public" => "lib/public.md",
-        #    "Internals" => "lib/internals.md",
     ],
 
 )
