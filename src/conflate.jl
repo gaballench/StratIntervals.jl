@@ -5,6 +5,8 @@
 
 Method for making product of Normals to behave as the generic one. The specialised one returning a MvNormal generates issues during conflation when all distribs are normal.
 
+The methods associated to Product are going to be deprecated from Distributions. Prepare to modify this method accordingly.
+
 """
 function Distributions.product_distribution(dists::Vector{Normal{Float64}})
     return Product(dists)
@@ -16,6 +18,9 @@ end
 
 Method for specifying the product of an arbitrary vector of pdfs to be evaluated at the same
 x value.
+
+Note: This method may need to be changed when Distributions deprecate Product.
+See product_distribution(dists::Vector{Normal{Float64}}).
 
 # examples
 
