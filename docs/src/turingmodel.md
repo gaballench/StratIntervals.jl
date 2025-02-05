@@ -15,7 +15,7 @@ We can define the posterior distribution of parameters describing a stratigraphi
 \end{equation}
 ```
 
-where ``f(\theta_1)``, ``f(\theta_2)``, and ``f(\lambda)`` are the priors of parameters, and ``\prod_{i = 1}^{N} f(\tau_i | \theta_1,\theta_2,\lambda)`` is the likelihood function, where data are fixed.
+where ``f(\theta_1)``, ``f(\theta_2)``, and ``f(\lambda)`` are the priors of parameters, and ``\prod_{i = 1}^{N} f(\tau_i | \theta_1,\theta_2,\lambda)`` is the likelihood function, where data are fixed. Here, the likelihood function is the `ThreeParBeta` distribution.
 
 Now we can use the function `sample_stratinterval` which takes an object of type `StratInterval` as input as well as settings for the MCMC sampling.
     

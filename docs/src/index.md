@@ -7,6 +7,16 @@ CurrentModule = StratIntervals
 Documentation for the [StratIntervals](https://github.com/gaballench/StratIntervals.jl) package.
 Please refer to Ballen (XXXX) for details as well as to the documentations herein.
 
+## Is this package for me?
+
+This package is useful for you if:
+
+1. You have a series of occurrences in time, and want to estimate the time at which these events started and finished happening. Examples include a series of fossil occurrences for a given species for which we want to estimate the origination and extinction times.
+
+2. You have a collection of multiple intervals as described above, and want to calculate the probability distribution for the time of oc-occurrence of them, that is, the time at which these were co-existing. For example, we have stratigraphic intervals for different species that were found at the same fossil assemblage, and we want to estimate the time of the assemblage.
+
+3. Want to use the distributions implemented in this package for other purposes, for instance the Three-Parameter Beta distribution, or the Reflected-Offset Exponential distribution. 
+
 # Literature cited
 
 The following references have been cited throughout the documentation.
