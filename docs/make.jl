@@ -38,7 +38,4 @@ makedocs(
 deploydocs(
     repo = "github.com/gaballench/StratIntervals.jl.git",
     target = "build",
-    deps   = nothing,
-    make   = nothing,
-    push_preview = true,
 )
