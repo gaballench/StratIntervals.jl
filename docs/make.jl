@@ -26,9 +26,9 @@ makedocs(
                                  :linkcheck, :meta_block, :parse_error, :setup_block),
     pages = [
         "Home" => "index.md",
-        "Conflation of PDFs" => "conflation.md",
-        "Distributions" => "distributions.md",
         "Stratigraphic intervals" => "stratinterval.md",
+        "Distributions" => "distributions.md",
+        "Conflation of PDFs" => "conflation.md",
         "Sampling a stratigraphic interval and posterior predictive" => "turingmodel.md",
         "Public  API" => "api.md",
     ],
