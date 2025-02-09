@@ -17,6 +17,22 @@ This package is useful for you if:
 
 3. Want to use the distributions implemented in this package for other purposes, for instance the Three-Parameter Beta distribution, or the Reflected-Offset Exponential distribution. 
 
+## Installation
+
+You may install the stable version of the package from the Julia Package General Registry with:
+
+```julia
+using Pkg
+Pkg.add("StratIntervals")
+```
+
+Also, you may install the development version from GitHub:
+
+```julia
+using Pkg
+Pkg.add("https://github.com/gaballench/StratIntervals.jl")
+```
+
 # Literature cited
 
 The following references have been cited throughout the documentation.

@@ -58,7 +58,7 @@ This shows how real-world age information is found in the literature: In the for
  
 ## Specifying priors
 
-Priors are distributions which describe our beliefs about possible values for the parameters of interest. For instance, if our model is a Binomial distribution with parameter ``theta``, the proportion of success, a natural choice for describing our prior knowledge on it may be the Beta distribution, which is bound to the interval ``[0,1]``, such as proportions. The specific values of ``\alpha`` and ``\beta`` will define which values of ``\theta`` are more probable. It is even possible that any value between 0 and 1 is equally likely, when ``\alpha`` and ``\beta`` are equal to 1.
+Priors are distributions which describe our beliefs about possible values for the parameters of interest. For instance, if our model is a Binomial distribution with parameter ``\theta``, the proportion of success, a natural choice for describing our prior knowledge on it may be the Beta distribution, which is bound to the interval ``[0,1]``, such as proportions. The specific values of ``\alpha`` and ``\beta`` will define which values of ``\theta`` are more probable. It is even possible that any value between 0 and 1 is equally likely, when ``\alpha`` and ``\beta`` are equal to 1.
 
 Distributions are defined using the [Distributions.jl](https://juliastats.org/Distributions.jl/) package. The syntax for defining priors is as follows:
 

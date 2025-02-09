@@ -25,8 +25,14 @@ Please visit [https://gaballench.github.io/StratIntervals.jl/](https://gaballenc
 
 ## Installation
 
-For now only the github development version is available. You can install using
-:
+You may install the stable version of the package from the Julia Package General Registry with:
+
+```julia
+using Pkg
+Pkg.add("StratIntervals")
+```
+
+Also, you may install the development version from GitHub:
 
 ```julia
 using Pkg
