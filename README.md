@@ -2,6 +2,7 @@
 
 [![Build Status](https://github.com/gaballench/StratIntervals.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/gaballench/StratIntervals.jl/actions/workflows/CI.yml?query=branch%3Amain)
 
+[![version](https://juliahub.com/docs/General/StratIntervals/stable/version.svg)](https://juliahub.com/ui/Packages/General/StratIntervals)
 
 ## Description
 
