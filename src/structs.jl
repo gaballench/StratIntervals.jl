@@ -28,7 +28,7 @@ is discouraged in empirical applications, no matter how certain we seem to be ab
 a given parameter.
 
 An important exception to the rule above is when we have stratigraphic data for an extant lineage,
-in this case we can (and in fact should) fix θ1_prior to 0.0
+in this case we can (and in fact should) fix θ2_prior to 0.0
 
 # examples
 
