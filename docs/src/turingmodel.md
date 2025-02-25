@@ -154,7 +154,7 @@ nothing
 
 As we can see, the ESS values are quite low compared to our original ones, and the trace plots show less "random" behaviour of the sampled parameter values. These two are signs of poor convergence. Just letting the sampling to run by longer had the effect of improving convergence. 
 
-## Calculating ``\tau`` for a collection of stratigraphic intervals
+## Calculating the time of co-occurrence for a collection of stratigraphic intervals
 
 Now that we can calculate posterior distributions and posterior predictives, let us combine these tools for collections of stratigraphic intervals to build a distribution of the co-occurrence time.
 
