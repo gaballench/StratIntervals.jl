@@ -156,7 +156,7 @@ As we can see, the ESS values are quite low compared to our original ones, and t
 
 ## Calculating ``\tau`` for a collection of stratigraphic intervals
 
-    Now that we can calculate posterior distributions and posterior predictives, let us combine these tools for collections of stratigraphic intervals to build a distribution of the co-occurrence time.
+Now that we can calculate posterior distributions and posterior predictives, let us combine these tools for collections of stratigraphic intervals to build a distribution of the co-occurrence time.
 
 In this setting we have two stratigraphic intervals, each of which is a vector of time occurrences. We will set priors on each group of parameters, and sample from the posteriors. Then we will calculate the posterior predictive of each interval and finally combine them using conflation.
 
