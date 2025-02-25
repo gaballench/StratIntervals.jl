@@ -34,6 +34,7 @@ export
     # turingmodel.jl
     sample_stratinterval,
     # conflation.jl
+    quant,
     product_distribution,
     conflate,
     pdf,
