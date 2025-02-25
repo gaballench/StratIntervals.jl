@@ -31,17 +31,17 @@ empirical2_vec = rand(Uniform(1, 2), 20)
 # stack them together in a matrix, column-wise
 empirical_matrix = [empirical1_vec empirical2_vec]
 
-xx = -0.0:0.01:800.0
+xx = -5:0.01:5
 yy = map(x -> conflate(empirical_matrix, x), xx);
 
 plot(xx, yy, label="Conflation")
 density!(empirical1_vec, label="Empirical 1")
 density!(empirical2_vec, label="Empirical 2")
 
-quant(empirical_matrix, 0.025, true, 0.0, 800.0)
-quant(empirical_matrix, 0.975, true, 0.0, 800.0)
-quant(empirical_matrix, 0.025, false, 0.0, 800.0)
-quant(empirical_matrix, 0.5, false, 0.0, 800.0)
+quant(empirical_matrix, 0.025, true, -5.0, 5.0)
+quant(empirical_matrix, 0.975, true, -5.0, 5.0)
+quant(empirical_matrix, 0.025, false, -5.0, 5.0)
+quant(empirical_matrix, 0.5, false, -5.0, 5.0)
 ```
 """
 function quant(taus::Array{Float64, 2}, p::Float64, lower_tail::Bool, min::Float64, max::Float64)
@@ -67,7 +67,7 @@ function quant(taus::Array{Float64, 2}, p::Float64, lower_tail::Bool, min::Float
 end
 
 """
-    quant(taus::Vector{StratInterval}, p::Float64, lower_tail::Bool, min::Float64, max::Float64)
+    quant(taus::Vector{Any}, p::Float64, lower_tail::Bool, min::Float64, max::Float64)
 
 A function for calculating the quantile for a given probability value on a conflated distribution.
 Whether to calculate lower or upper tail is available.
@@ -86,6 +86,7 @@ using Random
 using Distributions
 using StatsPlots
 using StratIntervals
+using Turing
 Random.seed!(1507)
 
 setprogress!(false)
@@ -130,7 +131,7 @@ quant(mystratint_postpredict_vec, 0.025, false, 0.0, 800.0)
 quant(mystratint_postpredict_vec, 0.5, false, 0.0, 800.0)
 ```
 """
-function quant(taus::Vector{StratInterval}, p::Float64, lower_tail::Bool, min::Float64, max::Float64)
+function quant(taus::Vector{Any}, p::Float64, lower_tail::Bool, min::Float64, max::Float64)
     # part of this comes from tau_collection, and part from conflate
     # from tau_collection
     postpredict_matrix = reduce(hcat, getindex.(taus, 2))

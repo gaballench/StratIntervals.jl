@@ -11,6 +11,7 @@ using DataFrames
 using Interpolations
 using KernelDensity
 using SpecialFunctions
+using Optim
 
 # functions to export for the users to call
 export
