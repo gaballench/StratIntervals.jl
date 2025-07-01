@@ -18,7 +18,7 @@ Turing = "fce5fe82-541a-59a6-adf8-730c64b5f9a0"
 [compat]
 DataFrames = "1.6"
 Distributions = "0.25"
-Interpolations = "0.15"
+Interpolations = "0.15, 0.16"
 KernelDensity = "0.6"
 Optim = "1.11"
 QuadGK = "2.11"
