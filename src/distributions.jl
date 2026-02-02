@@ -708,6 +708,5 @@ rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random numbers
 """
 function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
     #sample = rand(rng, d.distribution(d.θ))
-    #return d.ρ * (sample - d.o) # original
-    return -1
+    return d.ρ * (sample + d.o)
 end
