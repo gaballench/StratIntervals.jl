@@ -678,24 +678,12 @@ function Distributions.insupport(d::RefOffExponential, x::Real)
 end
 
 ### sampler for the RefOffExponential
-"""
-    RefOffExponentialSampler
-
-This structure provides the parameters and function type for the RefOffExponential, to be used with `Distributions.rand`.
-It is a subtype Sampleable of type Univariate, Continuous.
-"""
-struct RefOffExponentialSampler <: Sampleable{Univariate, Continuous}
-    θ::Real
-    o::Real
-    ρ::Real
-end
-
 # rand method for the RefOffExponential sampler
 """
-    Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
+    Base.rand(rng::AbstractRNG, d::RefOffExponential)
 
 This method extends the random sampler for the RefOffExponential. It will return a single random Float64 from the RefOffExponential
-when called with only the distribution specification, or a vector of Float64 when specifying how many numbers to sample. Random samples are generated using the inversion method.
+when called with only the distribution specification, or a vector of Float64 when specifying how many numbers to sample.
 
 # examples
 
@@ -705,7 +693,7 @@ rand(RefOffExponential(1, 10.0, 1)) # return a single random number
 rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random numbers
 ```
 """
-function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
-    sample = rand(rng, Uniform())
-    return (d.ρ * (- (d.θ) * log(1 - sample))) + d.o
+function Base.rand(rng::AbstractRNG, d::RefOffExponential)
+    sample = rand(rng, Exponential(d.θ))
+    return (d.ρ * sample) + d.o
 end

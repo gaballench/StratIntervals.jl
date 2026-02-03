@@ -28,7 +28,7 @@ export
     insupport,
     ThreeParBetaSampler,
     FourParBetaSampler,
-    RefOffExponentialSampler,
+    #RefOffExponentialSampler,
     rand,
     # structs.jl
     StratInterval,
