@@ -685,7 +685,6 @@ This structure provides the parameters and function type for the RefOffExponenti
 It is a subtype Sampleable of type Univariate, Continuous.
 """
 struct RefOffExponentialSampler <: Sampleable{Univariate, Continuous}
-    distribution::Exponential
     θ::Real
     o::Real
     ρ::Real
@@ -707,6 +706,8 @@ rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random numbers
 ```
 """
 function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
-    #sample = rand(rng, d.distribution(d.θ))
-    return d.ρ * (sample + d.o)
+    #u = rand(Uniform(0,1), 1)
+    #sample = (d.ρ * (- (d.θ) * ln(1 - u))) + d.o
+    #return sample
+    return -1
 end
