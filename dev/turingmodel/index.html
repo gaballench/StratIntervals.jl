@@ -17,8 +17,8 @@ Chains MCMC chain (10000×15×1 Array{Float64, 3}):
 Iterations        = 1001:1:11000
 Number of chains  = 1
 Samples per chain = 10000
-Wall duration     = 11.08 seconds
-Compute duration  = 11.08 seconds
+Wall duration     = 10.81 seconds
+Compute duration  = 10.81 seconds
 parameters        = θ1, θ2, λ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
 
@@ -49,8 +49,8 @@ false</code><br/><code class="language-julia-repl hljs" style="display:block;">j
 Iterations        = 1:1:10000
 Number of chains  = 1
 Samples per chain = 10000
-Wall duration     = 0.16 seconds
-Compute duration  = 0.16 seconds
+Wall duration     = 0.17 seconds
+Compute duration  = 0.17 seconds
 parameters        = θ1, θ2, λ
 internals         = lp
 
@@ -92,8 +92,8 @@ Chains MCMC chain (1000×15×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 0.21 seconds
-Compute duration  = 0.21 seconds
+Wall duration     = 0.22 seconds
+Compute duration  = 0.22 seconds
 parameters        = θ1, θ2, λ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
 
@@ -124,4 +124,4 @@ false</code><br/><code class="language-julia-repl hljs" style="display:block;">j
 ┌ Info: Found initial step size
 └   ϵ = 0.8</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # now calculate the conflation of posterior predictives for the collection interval_1, interval_2
        
-       xx = 0:0.01:40;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; yy = map(x -&gt; tau_collection(mystratint_postpredict_vec, x), xx);</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(xx, yy, label=&quot;Conflation&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=1}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; density!(mystratint_postpredict_vec[1][2], label=&quot;Postpredictive 1&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=2}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; density!(mystratint_postpredict_vec[2][2], label=&quot;Postpredictive 2&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=3}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; savefig(&quot;tau_collection.svg&quot;);</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; nothing</code></pre><p><img src="../tau_collection.svg" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../conflation/">« Conflation of PDFs</a><a class="docs-footer-nextpage" href="../api/">Public  API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Monday 2 February 2026 23:00">Monday 2 February 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+       xx = 0:0.01:40;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; yy = map(x -&gt; tau_collection(mystratint_postpredict_vec, x), xx);</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(xx, yy, label=&quot;Conflation&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=1}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; density!(mystratint_postpredict_vec[1][2], label=&quot;Postpredictive 1&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=2}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; density!(mystratint_postpredict_vec[2][2], label=&quot;Postpredictive 2&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=3}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; savefig(&quot;tau_collection.svg&quot;);</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; nothing</code></pre><p><img src="../tau_collection.svg" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../conflation/">« Conflation of PDFs</a><a class="docs-footer-nextpage" href="../api/">Public  API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Tuesday 3 February 2026 01:06">Tuesday 3 February 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
