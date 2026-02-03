@@ -1,7 +1,7 @@
 name = "StratIntervals"
 uuid = "25535e0e-5971-408f-b193-ac148e584f39"
 authors = ["Gustavo A. Ballen"]
-version = "1.1.0"
+version = "1.1.1"
 
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
