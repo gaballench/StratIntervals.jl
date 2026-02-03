@@ -593,7 +593,7 @@ quantile(RefOffExponential(1, 10.0, 1), 0.5) # calculate the median of the distr
 function Distributions.quantile(d::RefOffExponential, q::Real)
     # calculate the quantile on the standard beta, if reflected, calculate the complement on the reflected standard
     if (d.ρ == 1)
-        x = d.o + Distributions.quantile(Exponential(d.θ), q)
+        x = d.o + Distributions.quantile(Exponential(d.θ ), q)
     else
         x = d.o + Distributions.quantile(Exponential(d.θ), 1-q)
     end
@@ -706,8 +706,8 @@ rand(RefOffExponential(1, 10.0, 1), 10) # return a vector of 10 random numbers
 ```
 """
 function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
-    #u = rand(Uniform(0,1), 1)
-    #sample = (d.ρ * (- (d.θ) * ln(1 - u))) + d.o
-    #return sample
-    return -1
+    sample = rand(rng, Uniform())
+    return (d.ρ * (- (d.θ) * log(1 - sample))) + d.o
 end
+
+
