@@ -593,7 +593,7 @@ quantile(RefOffExponential(1, 10.0, 1), 0.5) # calculate the median of the distr
 function Distributions.quantile(d::RefOffExponential, q::Real)
     # calculate the quantile on the standard beta, if reflected, calculate the complement on the reflected standard
     if (d.ρ == 1)
-        x = d.o + Distributions.quantile(Exponential(d.θ ), q)
+        x = d.o + Distributions.quantile(Exponential(d.θ), q)
     else
         x = d.o + Distributions.quantile(Exponential(d.θ), 1-q)
     end
@@ -695,7 +695,7 @@ end
     Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
 
 This method extends the random sampler for the RefOffExponential. It will return a single random Float64 from the RefOffExponential
-when called with only the distribution specification, or a vector of Float64 when specifying how many numbers to sample.
+when called with only the distribution specification, or a vector of Float64 when specifying how many numbers to sample. Random samples are generated using the inversion method.
 
 # examples
 
@@ -709,5 +709,3 @@ function Base.rand(rng::AbstractRNG, d::RefOffExponentialSampler)
     sample = rand(rng, Uniform())
     return (d.ρ * (- (d.θ) * log(1 - sample))) + d.o
 end
-
-
