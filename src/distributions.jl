@@ -591,15 +591,14 @@ quantile(RefOffExponential(1, 10.0, 1), 0.5) # calculate the median of the distr
 ```
 """
 function Distributions.quantile(d::RefOffExponential, q::Real)
-    # calculate the quantile on the standard beta, if reflected, calculate the complement on the reflected standard
+    # calculate the quantile on the standard exponential, if reflected, calculate the complement on the reflected standard
     if (d.ρ == 1)
-        x = d.o + Distributions.quantile(Exponential(d.θ), q)
+        x = Distributions.quantile(Exponential(d.θ), q)
     else
-        x = d.o + Distributions.quantile(Exponential(d.θ), 1-q)
+        x = Distributions.quantile(Exponential(d.θ), 1-q)
     end
     # re-reflect and re-offset if necessary
-    
-    return d.ρ*(x - d.o)
+    return d.ρ*(x + d.o)
 end
 
 # minimum of the distribution
